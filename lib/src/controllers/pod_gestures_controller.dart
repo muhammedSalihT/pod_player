@@ -4,6 +4,7 @@ class _PodGesturesController extends _PodVideoQualityController {
   //double tap
   Timer? leftDoubleTapTimer;
   Timer? rightDoubleTapTimer;
+  bool isPlayed = false;
   int leftDoubleTapduration = 0;
   int rightDubleTapduration = 0;
   bool isLeftDbTapIconVisible = false;
@@ -34,6 +35,8 @@ class _PodGesturesController extends _PodVideoQualityController {
   }
 
   void onRightDoubleTap({int? seconds}) {
+    isPlayed = _videoCtr!.value.isPlaying;
+    notifyChildrens();
     _videoCtr!.value.isPlaying ? _videoCtr!.pause() : null;
     isShowOverlay(true);
     rightDoubleTapTimer?.cancel();
@@ -50,6 +53,7 @@ class _PodGesturesController extends _PodVideoQualityController {
       rightDoubleTapTimer?.cancel();
       isShowOverlay(false);
     });
+    isPlayed == true ? _videoCtr!.play() : null;
   }
 
   void onOverlayHover() {
