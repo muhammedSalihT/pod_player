@@ -137,7 +137,7 @@ class _PodCoreVideoPlayer extends StatelessWidget {
                                   !_podCtr.alwaysShowProgressBar
                               ? const SizedBox()
                               : Align(
-                                  alignment: Alignment.topCenter,
+                                  alignment: Alignment.bottomCenter,
                                   child: PodProgressBar(
                                     tag: tag,
                                     alignment: Alignment.bottomCenter,
