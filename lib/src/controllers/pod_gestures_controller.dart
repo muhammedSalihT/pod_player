@@ -51,10 +51,10 @@ class _PodGesturesController extends _PodVideoQualityController {
 
     seekForward(Duration(seconds: seconds ?? doubleTapForwardSeconds));
     rightDoubleTapTimer = Timer(const Duration(milliseconds: 1500), () {
+      _videoCtr!.value.isPlaying ? _videoCtr!.pause() : null;
       isRightDbTapIconVisible = false;
       updateRightTapDuration(0);
       rightDoubleTapTimer?.cancel();
-      _videoCtr!.value.isPlaying ? _videoCtr!.pause() : null;
       isPlayed == true ? _videoCtr!.play() : null;
       isShowOverlay(false);
     });
