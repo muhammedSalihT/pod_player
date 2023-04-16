@@ -31,7 +31,7 @@ class _PodGesturesController extends _PodVideoQualityController {
       leftDoubleTapTimer?.cancel();
       isShowOverlay(false);
     });
-    _videoCtr!.play();
+    _videoCtr!.pause();
   }
 
   void onRightDoubleTap({int? seconds}) {
@@ -51,7 +51,7 @@ class _PodGesturesController extends _PodVideoQualityController {
       rightDoubleTapTimer?.cancel();
       isShowOverlay(false);
     });
-    _videoCtr!.play();
+    _videoCtr!.pause();
   }
 
   void onOverlayHover() {
