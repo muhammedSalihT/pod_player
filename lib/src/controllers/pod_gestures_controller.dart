@@ -14,7 +14,7 @@ class _PodGesturesController extends _PodVideoQualityController {
   ///*handle double tap
 
   void onLeftDoubleTap({int? seconds}) {
-    _videoCtr!.pause();
+    _videoCtr!.value.isPlaying ? _videoCtr!.pause() : _videoCtr!.play();
     isShowOverlay(true);
     leftDoubleTapTimer?.cancel();
     rightDoubleTapTimer?.cancel();
@@ -31,11 +31,11 @@ class _PodGesturesController extends _PodVideoQualityController {
       leftDoubleTapTimer?.cancel();
       isShowOverlay(false);
     });
-    _videoCtr!.play();
+   _videoCtr!.value.isPlaying ? _videoCtr!.pause() : _videoCtr!.play();
   }
 
   void onRightDoubleTap({int? seconds}) {
-    _videoCtr!.pause();
+    _videoCtr!.value.isPlaying ? _videoCtr!.pause() : _videoCtr!.play();
     isShowOverlay(true);
     rightDoubleTapTimer?.cancel();
     leftDoubleTapTimer?.cancel();
