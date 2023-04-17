@@ -73,9 +73,9 @@ class _PodProgressBarState extends State<PodProgressBar> {
                 }
                 _controllerWasPlaying =
                     _podCtr.videoCtr?.value.isPlaying ?? false;
-                if (_controllerWasPlaying) {
-                  _podCtr.videoCtr?.pause();
-                }
+                // if (_controllerWasPlaying) {
+                //   _podCtr.videoCtr?.pause();
+                // }
 
                 if (widget.onDragStart != null) {
                   widget.onDragStart?.call();
