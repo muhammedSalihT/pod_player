@@ -51,8 +51,9 @@ class _PodVideoQualityController extends _PodVideoController {
     _urls?.removeWhere((element) => element.quality == 240);
 
     ///has issues with 144p in web
+    _urls?.removeWhere((element) => element.quality == 144);
     if (kIsWeb) {
-      _urls?.removeWhere((element) => element.quality == 144);
+      
     }
 
     ///sort

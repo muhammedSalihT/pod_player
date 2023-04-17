@@ -9,10 +9,8 @@ class _PodGesturesController extends _PodVideoQualityController {
   int rightDubleTapduration = 0;
   bool isLeftDbTapIconVisible = false;
   bool isRightDbTapIconVisible = false;
-
   Timer? hoverOverlayTimer;
 
-  ///*handle double tap
 
   void onLeftDoubleTap({int? seconds}) {
     isPlayed = _videoCtr!.value.isPlaying;
