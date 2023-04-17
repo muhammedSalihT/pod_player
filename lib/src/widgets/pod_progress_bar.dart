@@ -41,11 +41,11 @@ class _PodProgressBarState extends State<PodProgressBar> {
     Offset globalPosition,
     PodGetXVideoController _podCtr,
   ) {
-    setState(() {
-      isPlaying = _podCtr.videoCtr!.value.isPlaying;
-    });
-    setState(() {});
-    _podCtr.videoCtr!.value.isPlaying ? _podCtr.videoCtr!.pause() : null;
+    // setState(() {
+    //   isPlaying = _podCtr.videoCtr!.value.isPlaying;
+    // });
+    // setState(() {});
+    // _podCtr.videoCtr!.value.isPlaying ? _podCtr.videoCtr!.pause() : null;
     final box = context.findRenderObject() as RenderBox?;
     if (box != null) {
       final Offset tapPos = box.globalToLocal(globalPosition);
@@ -53,7 +53,9 @@ class _PodProgressBarState extends State<PodProgressBar> {
       final Duration position =
           (videoPlayerValue?.duration ?? Duration.zero) * relative;
       _podCtr.seekTo(position);
-      isPlaying ? _podCtr.videoCtr!.play() : _podCtr.videoCtr!.pause();
+      _podCtr.videoCtr!.value.isPlaying
+          ? _podCtr.videoCtr!.play()
+          : _podCtr.videoCtr!.pause();
     }
   }
 
