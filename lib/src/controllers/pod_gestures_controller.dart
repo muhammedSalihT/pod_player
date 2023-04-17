@@ -26,7 +26,11 @@ class _PodGesturesController extends _PodVideoQualityController {
       leftDoubleTapduration += seconds ?? doubleTapForwardSeconds,
     );
     seekBackward(Duration(seconds: seconds ?? doubleTapForwardSeconds));
-    _videoCtr!.value.isPlaying ? _videoCtr!.pause() : null;
+    if (_videoCtr!.value.isPlaying) {
+      isPlayed = true;
+      _videoCtr!.pause();
+      notifyChildrens();
+    }
     leftDoubleTapTimer = Timer(const Duration(milliseconds: 800), () {
       isLeftDbTapIconVisible = false;
       updateLeftTapDuration(0);
