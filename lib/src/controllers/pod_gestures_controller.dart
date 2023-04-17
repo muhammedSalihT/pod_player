@@ -53,8 +53,8 @@ class _PodGesturesController extends _PodVideoQualityController {
       isRightDbTapIconVisible = false;
       updateRightTapDuration(0);
       rightDoubleTapTimer?.cancel();
-
-      isPlayed == true ? _videoCtr!.play() : null;
+      _videoCtr!.play();
+      // isPlayed == true ? _videoCtr!.play() : null;
     });
   }
 
