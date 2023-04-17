@@ -30,11 +30,9 @@ class _PodCoreVideoPlayer extends StatelessWidget {
           child: Stack(
             fit: StackFit.expand,
             children: [
-              Center(
-                child: AspectRatio(
-                  aspectRatio: videoAspectRatio,
-                  child: VideoPlayer(videoPlayerCtr),
-                ),
+              AspectRatio(
+                aspectRatio: videoAspectRatio,
+                child: VideoPlayer(videoPlayerCtr),
               ),
               GetBuilder<PodGetXVideoController>(
                 tag: tag,
