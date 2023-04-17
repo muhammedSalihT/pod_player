@@ -4,7 +4,7 @@ class _PodGesturesController extends _PodVideoQualityController {
   //double tap
   Timer? leftDoubleTapTimer;
   Timer? rightDoubleTapTimer;
-  bool isPlayed = false;
+  bool? isPlayed = false;
   int leftDoubleTapduration = 0;
   int rightDubleTapduration = 0;
   bool isLeftDbTapIconVisible = false;
@@ -36,7 +36,7 @@ class _PodGesturesController extends _PodVideoQualityController {
   }
 
   void onRightDoubleTap({int? seconds}) {
-    isPlayed = _videoCtr!.value.isPlaying;
+    isPlayed = _videoCtr!.value.isPlaying == true ? true : null;
     notifyChildrens();
     rightDoubleTapTimer?.cancel();
     leftDoubleTapTimer?.cancel();
@@ -48,16 +48,20 @@ class _PodGesturesController extends _PodVideoQualityController {
 
     seekForward(Duration(seconds: seconds ?? doubleTapForwardSeconds));
 
-    // _videoCtr!.value.isPlaying ? _videoCtr!.pause() : null;
-    !_videoCtr!.value.isBuffering
-        ? rightDoubleTapTimer = Timer(const Duration(milliseconds: 800), () {
-            isRightDbTapIconVisible = false;
-            updateRightTapDuration(0);
-            rightDoubleTapTimer?.cancel();
-            // _videoCtr!.play();
-             isPlayed == true ? _videoCtr!.play() : null;
-          })
-        : null;
+    _videoCtr!.value.isPlaying ? _videoCtr!.pause() : null;
+    !_videoCtr!.value.isBuffering ? seeking() : null;
+    // rightDoubleTapTimer = Timer(const Duration(milliseconds: 800), () {
+
+    //   })
+    // : null;
+  }
+
+  void seeking() {
+    isRightDbTapIconVisible = false;
+    updateRightTapDuration(0);
+    rightDoubleTapTimer?.cancel();
+    // _videoCtr!.play();
+    isPlayed == true ? _videoCtr!.play() : null;
   }
 
   void onOverlayHover() {
