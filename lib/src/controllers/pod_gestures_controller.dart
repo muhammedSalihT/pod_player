@@ -57,6 +57,7 @@ class _PodGesturesController extends _PodVideoQualityController {
     updateRightTapDuration(0);
 
     isPlayed == true ? _videoCtr!.play() : null;
+    notifyChildrens();
   }
 
   void onOverlayHover() {
