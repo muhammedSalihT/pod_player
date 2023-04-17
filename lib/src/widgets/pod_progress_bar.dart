@@ -47,12 +47,13 @@ class _PodProgressBarState extends State<PodProgressBar> {
     _podCtr.videoCtr!.value.isPlaying ? _podCtr.videoCtr!.pause() : null;
     final box = context.findRenderObject() as RenderBox?;
     if (box != null) {
+      setState(() {});
       final Offset tapPos = box.globalToLocal(globalPosition);
       final double relative = tapPos.dx / box.size.width;
       final Duration position =
           (videoPlayerValue?.duration ?? Duration.zero) * relative;
-      _podCtr.seekTo(position);
       isPlaying ? _podCtr.videoCtr!.play() : _podCtr.videoCtr!.pause();
+      _podCtr.seekTo(position);
     }
   }
 
