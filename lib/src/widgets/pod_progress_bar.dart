@@ -52,14 +52,7 @@ class _PodProgressBarState extends State<PodProgressBar> {
       final Duration position =
           (videoPlayerValue?.duration ?? Duration.zero) * relative;
       _podCtr.seekTo(position);
-      isPlaying
-          ? () {
-              _podCtr.isShowOverlay(false);
-              _podCtr.videoCtr!.play();
-            }
-          : () {
-              _podCtr.videoCtr!.pause();
-            };
+      isPlaying ? _podCtr.videoCtr!.play() : _podCtr.videoCtr!.pause();
     }
   }
 
