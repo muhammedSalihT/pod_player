@@ -32,6 +32,8 @@ class _PodGesturesController extends _PodVideoQualityController {
       updateLeftTapDuration(0);
       leftDoubleTapTimer?.cancel();
       isPlayed == true ? _videoCtr!.play() : null;
+      isPlayed == true;
+      notifyChildrens();
     });
   }
 
