@@ -15,8 +15,6 @@ class _PodGesturesController extends _PodVideoQualityController {
   ///*handle double tap
 
   void onLeftDoubleTap({int? seconds}) {
-    isPlayed = _videoCtr!.value.isPlaying;
-    notifyChildrens();
     leftDoubleTapTimer?.cancel();
     rightDoubleTapTimer?.cancel();
 
