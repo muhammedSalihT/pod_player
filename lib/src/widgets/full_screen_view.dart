@@ -61,18 +61,16 @@ class _FullScreenViewState extends State<FullScreenView>
               child: SizedBox(
                 height: MediaQuery.of(context).size.height,
                 width: MediaQuery.of(context).size.width,
-                child: Center(
-                  child: _podCtr.videoCtr == null
-                      ? loadingWidget
-                      : _podCtr.videoCtr!.value.isInitialized
-                          ? _PodCoreVideoPlayer(
-                              tag: widget.tag,
-                              videoPlayerCtr: _podCtr.videoCtr!,
-                              videoAspectRatio:
-                                  _podCtr.videoCtr?.value.aspectRatio ?? 16 / 9,
-                            )
-                          : loadingWidget,
-                ),
+                child: _podCtr.videoCtr == null
+                    ? loadingWidget
+                    : _podCtr.videoCtr!.value.isInitialized
+                        ? _PodCoreVideoPlayer(
+                            tag: widget.tag,
+                            videoPlayerCtr: _podCtr.videoCtr!,
+                            videoAspectRatio:
+                                _podCtr.videoCtr?.value.aspectRatio ?? 16 / 9,
+                          )
+                        : loadingWidget,
               ),
             ),
           ),
