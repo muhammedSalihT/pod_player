@@ -38,17 +38,17 @@ class _MobileBottomSheet extends StatelessWidget {
                 // );
               },
             ),
-          // _bottomSheetTiles(
-          //   title: _podCtr.podPlayerLabels.loopVideo,
-          //   icon: Icons.loop_rounded,
-          //   subText: _podCtr.isLooping
-          //       ? _podCtr.podPlayerLabels.optionEnabled
-          //       : _podCtr.podPlayerLabels.optionDisabled,
-          //   onTap: () {
-          //     Navigator.of(context).pop();
-          //     _podCtr.toggleLooping();
-          //   },
-          // ),
+          _bottomSheetTiles(
+            title: _podCtr.podPlayerLabels.loopVideo,
+            icon: Icons.loop_rounded,
+            subText: _podCtr.isLooping
+                ? _podCtr.podPlayerLabels.optionEnabled
+                : _podCtr.podPlayerLabels.optionDisabled,
+            onTap: () {
+              Navigator.of(context).pop();
+              _podCtr.toggleLooping();
+            },
+          ),
           _bottomSheetTiles(
             title: _podCtr.podPlayerLabels.playbackSpeed,
             icon: Icons.slow_motion_video_rounded,
