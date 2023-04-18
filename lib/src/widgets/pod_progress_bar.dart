@@ -75,12 +75,10 @@ class _PodProgressBarState extends State<PodProgressBar> {
                 }
 
                 if (_podCtr.videoCtr!.value.isPlaying) {
+                  _podCtr.videoCtr!.pause();
                   setState(() {
                     isPlayed = true;
                   });
-                  _podCtr.videoCtr!.value.isPlaying
-                      ? _podCtr.videoCtr!.pause()
-                      : null;
                 }
 
                 if (widget.onDragStart != null) {
