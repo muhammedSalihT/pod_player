@@ -49,14 +49,14 @@ class _PodProgressBarState extends State<PodProgressBar> {
       final double relative = tapPos.dx / box.size.width;
       final Duration position =
           (videoPlayerValue?.duration ?? Duration.zero) * relative;
-      if (isPlayed == true) {
+      _podCtr.seekTo(position);
+    }
+    if (isPlayed == true) {
         setState(() {
           isPlayed = false;
         });
-        _podCtr.videoCtr!.pause();
+        _podCtr.videoCtr!.play();
       }
-      _podCtr.seekTo(position);
-    }
   }
 
   @override
