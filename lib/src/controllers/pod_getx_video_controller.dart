@@ -41,16 +41,12 @@ class PodGetXVideoController extends _PodGesturesController {
   late PlayVideoFrom playVideoFrom;
   bool isPlaying = false;
 
-  void saveCurrentState({bool? value}) {
-    isPlaying = value!;
-    notifyChildrens();
-  }
-
   void seekToRelativePosition(
     Offset globalPosition,
     BuildContext context,
   ) {
-    saveCurrentState(value: videoCtr!.value.isPlaying);
+    isPlaying = videoCtr!.value.isPlaying;
+    notifyChildrens();
     videoCtr!.value.isPlaying ? videoCtr!.pause() : null;
     final box = context.findRenderObject() as RenderBox?;
     if (box != null) {
@@ -61,7 +57,8 @@ class PodGetXVideoController extends _PodGesturesController {
       seekTo(position);
     }
     isPlaying ? videoCtr!.play() : null;
-    saveCurrentState(value: false);
+    isPlaying = false;
+    notifyChildrens();
   }
 
   void config({
