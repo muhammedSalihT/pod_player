@@ -50,12 +50,12 @@ class _PodProgressBarState extends State<PodProgressBar> {
       final Duration position =
           (videoPlayerValue?.duration ?? Duration.zero) * relative;
       _podCtr.seekTo(position);
-    }
-    if (isPlayed == true) {
-      _podCtr.videoCtr!.play();
-      setState(() {
-        isPlayed = false;
-      });
+      if (isPlayed == true) {
+        _podCtr.videoCtr!.play();
+        setState(() {
+          isPlayed = false;
+        });
+      }
     }
   }
 
@@ -86,14 +86,19 @@ class _PodProgressBarState extends State<PodProgressBar> {
                 if (!videoPlayerValue!.isInitialized) {
                   return;
                 }
-                _podCtr.isShowOverlay(true);
+                // _podCtr.isShowOverlay(true);
                 seekToRelativePosition(details.globalPosition);
 
                 widget.onDragUpdate?.call();
               },
               onHorizontalDragEnd: (DragEndDetails details) {
                 _podCtr.toggleVideoOverlay();
-
+                if (isPlayed == true) {
+                  _podCtr.videoCtr!.play();
+                  setState(() {
+                    isPlayed = false;
+                  });
+                }
                 if (widget.onDragEnd != null) {
                   widget.onDragEnd?.call();
                 }
