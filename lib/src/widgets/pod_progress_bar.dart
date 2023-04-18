@@ -36,24 +36,6 @@ class _PodProgressBarState extends State<PodProgressBar> {
   late VideoPlayerValue? videoPlayerValue = _podCtr.videoCtr?.value;
   bool _controllerWasPlaying = false;
 
-  void seekToRelativePosition(
-    Offset globalPosition,
-    PodGetXVideoController _podCtr,
-  ) {
-    _podCtr.saveCurrentState(value: _podCtr.videoCtr!.value.isPlaying);
-    _podCtr.isPlaying ? _podCtr.videoCtr!.pause() : null;
-    final box = context.findRenderObject() as RenderBox?;
-    if (box != null) {
-      final Offset tapPos = box.globalToLocal(globalPosition);
-      final double relative = tapPos.dx / box.size.width;
-      final Duration position =
-          (videoPlayerValue?.duration ?? Duration.zero) * relative;
-      _podCtr.seekTo(position);
-    }
-    _podCtr.isPlaying ? _podCtr.videoCtr!.play() : null;
-    _podCtr.saveCurrentState(value: false);
-  }
-
   @override
   Widget build(BuildContext context) {
     if (videoPlayerValue == null) return const SizedBox();
@@ -86,9 +68,9 @@ class _PodProgressBarState extends State<PodProgressBar> {
                 if (!videoPlayerValue!.isInitialized) {
                   return;
                 }
-                _podCtr.isShowOverlay(true);
+                _podCtr..isShowOverlay(true)
 
-                seekToRelativePosition(details.globalPosition, _podCtr);
+                ..seekToRelativePosition(details.globalPosition, context);
 
                 widget.onDragUpdate?.call();
               },
@@ -106,7 +88,7 @@ class _PodProgressBarState extends State<PodProgressBar> {
                 if (!videoPlayerValue!.isInitialized) {
                   return;
                 }
-                seekToRelativePosition(details.globalPosition, _podCtr);
+                 _podCtr.seekToRelativePosition(details.globalPosition, context);
               },
             );
           },
