@@ -55,13 +55,14 @@ class _PodGesturesController extends _PodVideoQualityController {
       notifyChildrens();
     }
     rightDoubleTapTimer = Timer(const Duration(milliseconds: 800), () {
-      isShowOverlay(false);
+      
       isRightDbTapIconVisible = false;
       updateRightTapDuration(0);
       rightDoubleTapTimer?.cancel();
       isPlayed == true ? _videoCtr!.play() : null;
       isPlayed = false;
       notifyChildrens();
+      isShowOverlay(true);
     });
   }
 
