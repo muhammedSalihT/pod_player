@@ -78,6 +78,8 @@ class _PodProgressBarState extends State<PodProgressBar> {
                   return;
                 }
 
+                seekToRelativePosition(details.globalPosition);
+
                 if (widget.onDragStart != null) {
                   widget.onDragStart?.call();
                 }
@@ -93,7 +95,7 @@ class _PodProgressBarState extends State<PodProgressBar> {
               },
               onHorizontalDragEnd: (DragEndDetails details) {
                 _podCtr.toggleVideoOverlay();
-                isPlayed == true ? _podCtr.videoCtr!.play() : null;
+              //  isPlayed == true ? _podCtr.videoCtr!.play() : null;
                 if (isPlayed == true) {}
                 if (widget.onDragEnd != null) {
                   widget.onDragEnd?.call();
