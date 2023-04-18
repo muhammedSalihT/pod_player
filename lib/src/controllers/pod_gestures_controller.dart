@@ -49,6 +49,7 @@ class _PodGesturesController extends _PodVideoQualityController {
     );
 
     seekForward(Duration(seconds: seconds ?? doubleTapForwardSeconds));
+    isShowOverlay(true);
     if (_videoCtr!.value.isPlaying) {
       isPlayed = true;
       _videoCtr!.pause();
@@ -62,7 +63,7 @@ class _PodGesturesController extends _PodVideoQualityController {
       isPlayed == true ? _videoCtr!.play() : null;
       isPlayed = false;
       notifyChildrens();
-      isShowOverlay(true);
+      
     });
   }
 
