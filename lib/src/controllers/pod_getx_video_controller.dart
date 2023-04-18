@@ -51,7 +51,7 @@ class PodGetXVideoController extends _PodGesturesController {
     BuildContext context,
   ) {
     saveCurrentState(value: videoCtr!.value.isPlaying);
-    isPlaying ? videoCtr!.pause() : null;
+    videoCtr!.value.isPlaying ? videoCtr!.pause() : null;
     final box = context.findRenderObject() as RenderBox?;
     if (box != null) {
       final Offset tapPos = box.globalToLocal(globalPosition);

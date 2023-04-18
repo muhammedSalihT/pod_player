@@ -68,9 +68,9 @@ class _PodProgressBarState extends State<PodProgressBar> {
                 if (!videoPlayerValue!.isInitialized) {
                   return;
                 }
-                _podCtr..isShowOverlay(true)
-
-                ..seekToRelativePosition(details.globalPosition, context);
+                _podCtr
+                  ..isShowOverlay(true)
+                  ..seekToRelativePosition(details.globalPosition, context);
 
                 widget.onDragUpdate?.call();
               },
@@ -88,7 +88,7 @@ class _PodProgressBarState extends State<PodProgressBar> {
                 if (!videoPlayerValue!.isInitialized) {
                   return;
                 }
-                 _podCtr.seekToRelativePosition(details.globalPosition, context);
+                _podCtr.seekToRelativePosition(details.globalPosition, context);
               },
             );
           },
