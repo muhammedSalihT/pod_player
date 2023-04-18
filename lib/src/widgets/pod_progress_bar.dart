@@ -37,7 +37,7 @@ class _PodProgressBarState extends State<PodProgressBar> {
 
   void seekToRelativePosition(Offset globalPosition) {
     final box = context.findRenderObject() as RenderBox?;
-    _podCtr.videoCtr!.value.isPlaying ? _podCtr.videoCtr!.pause() : null;
+
     if (box != null) {
       final Offset tapPos = box.globalToLocal(globalPosition);
       final double relative = tapPos.dx / box.size.width;
