@@ -34,6 +34,8 @@ class _PodGesturesController extends _PodVideoQualityController {
       updateLeftTapDuration(0);
       leftDoubleTapTimer?.cancel();
       isPlayed == true ? _videoCtr!.play() : null;
+      isPlayed = false;
+      notifyChildrens();
     });
   }
 
@@ -54,6 +56,7 @@ class _PodGesturesController extends _PodVideoQualityController {
     }
 
     rightDoubleTapTimer = Timer(const Duration(milliseconds: 800), () {
+      isShowOverlay(false);
       isRightDbTapIconVisible = false;
       updateRightTapDuration(0);
       rightDoubleTapTimer?.cancel();
