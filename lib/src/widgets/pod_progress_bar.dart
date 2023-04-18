@@ -38,10 +38,10 @@ class _PodProgressBarState extends State<PodProgressBar> {
 
   void seekToRelativePosition(Offset globalPosition) {
     if (_podCtr.videoCtr!.value.isPlaying) {
-      _podCtr.videoCtr!.pause();
       setState(() {
         isPlayed = true;
       });
+      _podCtr.videoCtr!.pause();
     }
     final box = context.findRenderObject() as RenderBox?;
     if (box != null) {
@@ -52,10 +52,10 @@ class _PodProgressBarState extends State<PodProgressBar> {
       _podCtr.seekTo(position);
 
       if (isPlayed == true) {
-        _podCtr.videoCtr!.play();
         setState(() {
           isPlayed = false;
         });
+        _podCtr.videoCtr!.play();
       }
     }
   }
