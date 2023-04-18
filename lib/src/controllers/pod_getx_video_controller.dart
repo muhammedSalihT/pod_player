@@ -39,28 +39,6 @@ class PodGetXVideoController extends _PodGesturesController {
   bool controllerInitialized = false;
   late PodPlayerConfig podPlayerConfig;
   late PlayVideoFrom playVideoFrom;
-  bool isPlaying = false;
-
-  void seekToRelativePosition(
-    Offset globalPosition,
-    BuildContext context,
-  ) {
-    isPlaying = videoCtr!.value.isPlaying;
-    notifyChildrens();
-    videoCtr!.value.isPlaying ? videoCtr!.pause() : null;
-    final box = context.findRenderObject() as RenderBox?;
-    if (box != null) {
-      final Offset tapPos = box.globalToLocal(globalPosition);
-      final double relative = tapPos.dx / box.size.width;
-      final Duration position =
-          (videoCtr?.value.duration ?? Duration.zero) * relative;
-      seekTo(position);
-    }
-    isPlaying ? videoCtr!.play() : null;
-    isPlaying = false;
-    notifyChildrens();
-  }
-
   void config({
     required PlayVideoFrom playVideoFrom,
     required PodPlayerConfig playerConfig,

@@ -34,7 +34,24 @@ class PodProgressBar extends StatefulWidget {
 class _PodProgressBarState extends State<PodProgressBar> {
   late final _podCtr = Get.find<PodGetXVideoController>(tag: widget.tag);
   late VideoPlayerValue? videoPlayerValue = _podCtr.videoCtr?.value;
-  final bool _controllerWasPlaying = false;
+  bool _controllerWasPlaying = false;
+  bool isPlaying = false;
+
+  void seekToRelativePosition(
+    Offset globalPosition,
+    PodGetXVideoController _podCtr,
+  ) {
+    _podCtr.videoCtr!.value.isPlaying ? _podCtr.videoCtr!.pause() : null;
+    final box = context.findRenderObject() as RenderBox?;
+    if (box != null) {
+      final Offset tapPos = box.globalToLocal(globalPosition);
+      final double relative = tapPos.dx / box.size.width;
+      final Duration position =
+          (videoPlayerValue?.duration ?? Duration.zero) * relative;
+      _podCtr.seekTo(position);
+    }
+    _podCtr.videoCtr!.play();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -54,8 +71,8 @@ class _PodProgressBarState extends State<PodProgressBar> {
                 if (!videoPlayerValue!.isInitialized) {
                   return;
                 }
-                // _controllerWasPlaying =
-                //     _podCtr.videoCtr?.value.isPlaying ?? false;
+                _controllerWasPlaying =
+                    _podCtr.videoCtr?.value.isPlaying ?? false;
                 // if (_controllerWasPlaying) {
                 //   _podCtr.videoCtr?.pause();
                 // }
@@ -68,14 +85,16 @@ class _PodProgressBarState extends State<PodProgressBar> {
                 if (!videoPlayerValue!.isInitialized) {
                   return;
                 }
-                _podCtr
-                  ..isShowOverlay(true)
-                  ..seekToRelativePosition(details.globalPosition, context);
+                _podCtr.isShowOverlay(true);
+
+                seekToRelativePosition(details.globalPosition, _podCtr);
 
                 widget.onDragUpdate?.call();
               },
               onHorizontalDragEnd: (DragEndDetails details) {
-                _podCtr.isPlaying ? _podCtr.videoCtr!.play() : null;
+                if (_controllerWasPlaying) {
+                  _podCtr.videoCtr?.play();
+                }
                 _podCtr.toggleVideoOverlay();
 
                 if (widget.onDragEnd != null) {
@@ -86,7 +105,7 @@ class _PodProgressBarState extends State<PodProgressBar> {
                 if (!videoPlayerValue!.isInitialized) {
                   return;
                 }
-                _podCtr.seekToRelativePosition(details.globalPosition, context);
+                seekToRelativePosition(details.globalPosition, _podCtr);
               },
             );
           },
