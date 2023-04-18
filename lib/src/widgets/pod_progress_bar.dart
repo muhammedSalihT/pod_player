@@ -54,6 +54,9 @@ class _PodProgressBarState extends State<PodProgressBar> {
       _podCtr.seekTo(position);
     }
     isPlaying ? _podCtr.videoCtr!.play() : null;
+    setState(() {
+      isPlaying = false;
+    });
   }
 
   @override
