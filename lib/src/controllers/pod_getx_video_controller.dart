@@ -39,6 +39,12 @@ class PodGetXVideoController extends _PodGesturesController {
   bool controllerInitialized = false;
   late PodPlayerConfig podPlayerConfig;
   late PlayVideoFrom playVideoFrom;
+  bool isPlaying = false;
+
+  void saveCurrentState({bool? value}) {
+    isPlaying = value!;
+  }
+
   void config({
     required PlayVideoFrom playVideoFrom,
     required PodPlayerConfig playerConfig,
