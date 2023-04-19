@@ -89,7 +89,7 @@ class _PodProgressBarState extends State<PodProgressBar> {
                   return;
                 }
                 // _podCtr.isShowOverlay(true);
-                seekToRelativePosition(details.globalPosition);
+                // seekToRelativePosition(details.globalPosition);
 
                 widget.onDragUpdate?.call();
               },
