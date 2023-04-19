@@ -50,12 +50,12 @@ class _PodProgressBarState extends State<PodProgressBar> {
       final Duration position =
           (videoPlayerValue?.duration ?? Duration.zero) * relative;
       _podCtr.seekTo(position);
-      // if (isPlayed == true) {
-      //   _podCtr.videoCtr!.play();
-      //   setState(() {
-      //     isPlayed = false;
-      //   });
-      // }
+      if (isPlayed == true) {
+        _podCtr.videoCtr!.play();
+        setState(() {
+          isPlayed = false;
+        });
+      }
     }
   }
 
@@ -89,20 +89,22 @@ class _PodProgressBarState extends State<PodProgressBar> {
                   return;
                 }
                 // _podCtr.isShowOverlay(true);
-                // seekToRelativePosition(details.globalPosition);
+                seekToRelativePosition(details.globalPosition);
 
                 widget.onDragUpdate?.call();
               },
               onHorizontalDragEnd: (DragEndDetails details) {
                 _podCtr.toggleVideoOverlay();
-                isPlayed == true
-                    ? _podCtr.videoCtr!.play()
-                    : _podCtr.videoCtr!.pause();
-                setState(() {
-                  isPlayed = false;
-                });
+
                 if (widget.onDragEnd != null) {
                   widget.onDragEnd?.call();
+                }
+
+                if (isPlayed == true) {
+                  _podCtr.videoCtr!.play();
+                  setState(() {
+                    isPlayed = false;
+                  });
                 }
               },
               onTapDown: (TapDownDetails details) {
@@ -110,10 +112,6 @@ class _PodProgressBarState extends State<PodProgressBar> {
                   return;
                 }
                 seekToRelativePosition(details.globalPosition);
-                isPlayed == true
-                    ? _podCtr.videoCtr!.play()
-                    : _podCtr.videoCtr!.pause();
-                
               },
             );
           },
