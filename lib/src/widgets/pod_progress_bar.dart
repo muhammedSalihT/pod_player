@@ -109,10 +109,11 @@ class _PodProgressBarState extends State<PodProgressBar> {
                 if (!videoPlayerValue!.isInitialized) {
                   return;
                 }
+                seekToRelativePosition(details.globalPosition);
                 isPlayed == true
                     ? _podCtr.videoCtr!.play()
                     : _podCtr.videoCtr!.pause();
-                //seekToRelativePosition(details.globalPosition);
+                
               },
             );
           },
