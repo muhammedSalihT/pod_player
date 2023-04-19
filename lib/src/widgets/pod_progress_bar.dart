@@ -89,7 +89,7 @@ class _PodProgressBarState extends State<PodProgressBar> {
                   return;
                 }
                 // _podCtr.isShowOverlay(true);
-                seekToRelativePosition(details.globalPosition);
+                //seekToRelativePosition(details.globalPosition);
 
                 widget.onDragUpdate?.call();
               },
@@ -100,12 +100,12 @@ class _PodProgressBarState extends State<PodProgressBar> {
                   widget.onDragEnd?.call();
                 }
 
-                if (isPlayed == true) {
-                  _podCtr.videoCtr!.play();
-                  setState(() {
-                    isPlayed = false;
-                  });
-                }
+                // if (isPlayed == true) {
+                //   _podCtr.videoCtr!.play();
+                //   setState(() {
+                //     isPlayed = false;
+                //   });
+                // }
               },
               onTapDown: (TapDownDetails details) {
                 if (!videoPlayerValue!.isInitialized) {
