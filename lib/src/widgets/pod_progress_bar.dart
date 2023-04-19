@@ -95,8 +95,12 @@ class _PodProgressBarState extends State<PodProgressBar> {
               },
               onHorizontalDragEnd: (DragEndDetails details) {
                 _podCtr.toggleVideoOverlay();
-                isPlayed == true ? _podCtr.videoCtr!.play() : null;
-                if (isPlayed == true) {}
+                isPlayed == true
+                    ? _podCtr.videoCtr!.play()
+                    : _podCtr.videoCtr!.pause();
+                setState(() {
+                  isPlayed = false;
+                });
                 if (widget.onDragEnd != null) {
                   widget.onDragEnd?.call();
                 }
@@ -105,7 +109,10 @@ class _PodProgressBarState extends State<PodProgressBar> {
                 if (!videoPlayerValue!.isInitialized) {
                   return;
                 }
-                seekToRelativePosition(details.globalPosition);
+                isPlayed == true
+                    ? _podCtr.videoCtr!.play()
+                    : _podCtr.videoCtr!.pause();
+                //seekToRelativePosition(details.globalPosition);
               },
             );
           },
