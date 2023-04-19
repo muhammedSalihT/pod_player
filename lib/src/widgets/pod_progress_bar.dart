@@ -36,12 +36,12 @@ class _PodProgressBarState extends State<PodProgressBar> {
   late VideoPlayerValue? videoPlayerValue = _podCtr.videoCtr?.value;
   bool isPlayed = false;
 
-  void seekToRelativePosition(Offset globalPosition) {
+  Future<void> seekToRelativePosition(Offset globalPosition) async {
     if (_podCtr.videoCtr!.value.isPlaying) {
       setState(() {
         isPlayed = true;
       });
-      _podCtr.videoCtr!.pause();
+      await _podCtr.videoCtr!.pause();
     }
     final box = context.findRenderObject() as RenderBox?;
     if (box != null) {
@@ -49,9 +49,9 @@ class _PodProgressBarState extends State<PodProgressBar> {
       final double relative = tapPos.dx / box.size.width;
       final Duration position =
           (videoPlayerValue?.duration ?? Duration.zero) * relative;
-      _podCtr.seekTo(position);
+      await _podCtr.seekTo(position);
       if (isPlayed == true) {
-        _podCtr.videoCtr!.play();
+        await _podCtr.videoCtr!.play();
         setState(() {
           isPlayed = false;
         });
@@ -100,12 +100,12 @@ class _PodProgressBarState extends State<PodProgressBar> {
                   widget.onDragEnd?.call();
                 }
 
-                if (isPlayed == true) {
-                  _podCtr.videoCtr!.play();
-                  setState(() {
-                    isPlayed = false;
-                  });
-                }
+                // if (isPlayed == true) {
+                //   _podCtr.videoCtr!.play();
+                //   setState(() {
+                //     isPlayed = false;
+                //   });
+                // }
               },
               onTapDown: (TapDownDetails details) {
                 if (!videoPlayerValue!.isInitialized) {
