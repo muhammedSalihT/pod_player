@@ -21,12 +21,12 @@ class VideoApis {
       final jsonData =
           jsonDecode(response.body)['request']['files']['progressive'];
       return List.generate(
-        jsonData.length,
+        int.parse(jsonData.length.toString()),
         (index) => VideoQalityUrls(
           quality: int.parse(
             (jsonData[index]['quality'] as String?)?.split('p').first ?? '0',
           ),
-          url: jsonData[index]['url'],
+          url: jsonData[index]['url'].toString(),
         ),
       );
     } catch (error) {
@@ -54,12 +54,13 @@ class VideoApis {
       final jsonData = jsonDecode(response.body)['files'];
 
       final List<VideoQalityUrls> list = [];
-      for (int i = 0; i < jsonData.length; i++) {
+      for (int i = 0; i < num.parse(jsonData.length.toString()); i++) {
         final String quality =
             (jsonData[i]['rendition'] as String?)?.split('p').first ?? '0';
         final int? number = int.tryParse(quality);
         if (number != null && number != 0) {
-          list.add(VideoQalityUrls(quality: number, url: jsonData[i]['link']));
+          list.add(VideoQalityUrls(
+              quality: number, url: jsonData[i]['link'].toString()));
         }
       }
       return list;
