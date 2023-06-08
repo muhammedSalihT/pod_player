@@ -96,7 +96,7 @@ class _PodProgressBarState extends State<PodProgressBar> {
               onHorizontalDragEnd: (DragEndDetails details) {
                 _podCtr.toggleVideoOverlay();
 
-                if (widget.onDragEnd != null) {
+                if (widget.onDragEnd != null ) {
                   widget.onDragEnd?.call();
                 }
 
