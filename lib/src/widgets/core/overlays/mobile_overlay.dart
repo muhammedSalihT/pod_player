@@ -68,6 +68,7 @@ class _MobileOverlay extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               IconButton(
+                color: itemColor,
                 onPressed: () {
                   Navigator.pop(context);
                 },
