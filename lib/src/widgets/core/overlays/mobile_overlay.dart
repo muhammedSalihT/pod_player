@@ -96,10 +96,10 @@ class _MobileOverlay extends StatelessWidget {
             ],
           ),
         ),
-        Align(
-          alignment: Alignment.bottomLeft,
-          child: _MobileOverlayBottomControlles(tag: tag),
-        ),
+        // Align(
+        //   alignment: Alignment.bottomLeft,
+        //   child: _MobileOverlayBottomControlles(tag: tag),
+        // ),
       ],
     );
   }
