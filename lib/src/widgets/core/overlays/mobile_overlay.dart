@@ -65,15 +65,8 @@ class _MobileOverlay extends StatelessWidget {
         Align(
           alignment: Alignment.topCenter,
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              IconButton(
-                color: itemColor,
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                icon: const Icon(Icons.keyboard_backspace_sharp),
-              ),
               Expanded(
                 child: IgnorePointer(
                   child: _podCtr.videoTitle ?? const SizedBox(),
@@ -96,10 +89,10 @@ class _MobileOverlay extends StatelessWidget {
             ],
           ),
         ),
-        // Align(
-        //   alignment: Alignment.bottomLeft,
-        //   child: _MobileOverlayBottomControlles(tag: tag),
-        // ),
+        Align(
+          alignment: Alignment.bottomLeft,
+          child: _MobileOverlayBottomControlles(tag: tag),
+        ),
       ],
     );
   }
