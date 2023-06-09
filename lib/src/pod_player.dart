@@ -83,7 +83,7 @@ class PodVideoPlayer extends StatefulWidget {
   void addToUiController() {
     Get.find<PodGetXVideoController>(tag: controller.getTag)
 
-      ///add to ui controlle
+      ///add to ui controlles
       ..podPlayerLabels = podPlayerLabels
       ..alwaysShowProgressBar = alwaysShowProgressBar
       ..podProgressBarConfig = podProgressBarConfig
