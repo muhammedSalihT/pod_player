@@ -33,18 +33,18 @@ class _MobileOverlay extends StatelessWidget {
                 ),
               ),
             ),
-            _VideoGestureDetector(
-              tag: tag,
-              child: ColoredBox(
-                color: overlayColor,
-                child: SizedBox(
-                  height: double.infinity,
-                  child: Center(
-                    child: _AnimatedPlayPauseIcon(tag: tag, size: 42),
-                  ),
-                ),
-              ),
-            ),
+            // _VideoGestureDetector(
+            //   tag: tag,
+            //   child: ColoredBox(
+            //     color: overlayColor,
+            //     child: SizedBox(
+            //       height: double.infinity,
+            //       child: Center(
+            //         child: _AnimatedPlayPauseIcon(tag: tag, size: 42),
+            //       ),
+            //     ),
+            //   ),
+            // ),
             Expanded(
               child: _VideoGestureDetector(
                 tag: tag,
