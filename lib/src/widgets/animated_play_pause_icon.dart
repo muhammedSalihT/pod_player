@@ -6,7 +6,6 @@ class _AnimatedPlayPauseIcon extends StatefulWidget {
 
   const _AnimatedPlayPauseIcon({
     Key? key,
-    this.size,
     required this.tag,
   }) : super(key: key);
 
