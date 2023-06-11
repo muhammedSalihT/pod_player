@@ -261,12 +261,11 @@ class _PodVideoPlayerState extends State<PodVideoPlayer>
         },
       );
     } else {
-      return const SizedBox();
-      // return _PodCoreVideoPlayer(
-      //   videoPlayerCtr: _podCtr.videoCtr!,
-      //   videoAspectRatio: _videoAspectRatio,
-      //   tag: widget.controller.getTag,
-      // );
+      return _PodCoreVideoPlayer(
+        videoPlayerCtr: _podCtr.videoCtr!,
+        videoAspectRatio: _videoAspectRatio,
+        tag: widget.controller.getTag,
+      );
     }
   }
 }
