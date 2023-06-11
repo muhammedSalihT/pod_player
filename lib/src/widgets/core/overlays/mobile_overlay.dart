@@ -65,8 +65,14 @@ class _MobileOverlay extends StatelessWidget {
         Align(
           alignment: Alignment.topCenter,
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.end,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
+              IconButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                icon: const Icon(Icons.keyboard_backspace_rounded),
+              ),
               Expanded(
                 child: IgnorePointer(
                   child: _podCtr.videoTitle ?? const SizedBox(),
