@@ -74,7 +74,7 @@ class _MobileOverlay extends StatelessWidget {
                 icon: const Icon(
                   Icons.keyboard_backspace_rounded,
                   color: itemColor,
-                  size: 20,
+                  size: 30,
                 ),
               ),
               Expanded(
