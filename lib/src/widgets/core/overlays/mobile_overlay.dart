@@ -71,7 +71,11 @@ class _MobileOverlay extends StatelessWidget {
                 onPressed: () {
                   Navigator.pop(context);
                 },
-                icon: const Icon(Icons.keyboard_backspace_rounded),
+                icon: const Icon(
+                  Icons.keyboard_backspace_rounded,
+                  color: itemColor,
+                  size: 20,
+                ),
               ),
               Expanded(
                 child: IgnorePointer(
