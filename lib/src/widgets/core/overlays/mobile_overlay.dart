@@ -72,6 +72,10 @@ class _MobileOverlay extends StatelessWidget {
                   child: _podCtr.videoTitle ?? const SizedBox(),
                 ),
               ),
+              IconButton(
+                onPressed: _podCtr.onExtraButtonPressed,
+                icon: _podCtr.extraButtonBeforeMore ?? const SizedBox(),
+              ),
               MaterialIconButton(
                 toolTipMesg: _podCtr.podPlayerLabels.settings,
                 color: itemColor,
