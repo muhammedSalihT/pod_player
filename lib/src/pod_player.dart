@@ -45,8 +45,6 @@ class PodVideoPlayer extends StatefulWidget {
   final Widget? videoTitle;
   final Color? backgroundColor;
   final DecorationImage? videoThumbnail;
-  final Widget? extraButtonBeforeMore;
-  final void Function()? onExtraButtonPressed;
 
   /// Optional callback, fired when full screen mode toggles.
   ///
@@ -75,8 +73,6 @@ class PodVideoPlayer extends StatefulWidget {
     this.videoThumbnail,
     this.onToggleFullScreen,
     this.onLoading,
-    this.extraButtonBeforeMore,
-    this.onExtraButtonPressed,
   }) : super(key: key) {
     addToUiController();
   }
@@ -95,9 +91,7 @@ class PodVideoPlayer extends StatefulWidget {
       ..videoTitle = videoTitle
       ..onToggleFullScreen = onToggleFullScreen
       ..onLoading = onLoading
-      ..videoThumbnail = videoThumbnail
-      ..onExtraButtonPressed = onExtraButtonPressed
-      ..extraButtonBeforeMore = extraButtonBeforeMore;
+      ..videoThumbnail = videoThumbnail;
   }
 
   @override
@@ -231,13 +225,13 @@ class _PodVideoPlayerState extends State<PodVideoPlayer>
       return _buildLoading();
     }
 
-    return SizedBox.expand(
+    return SizedBox.shrink(
       child: TweenAnimationBuilder<double>(
         builder: (context, value, child) => Opacity(
           opacity: value,
           child: child,
         ),
-        tween: Tween<double>(begin: 0.2, end: 0.5),
+        tween: Tween<double>(begin: 0.2, end: 0.7),
         duration: const Duration(milliseconds: 400),
         child: DecoratedBox(
           decoration: BoxDecoration(image: widget.videoThumbnail),
