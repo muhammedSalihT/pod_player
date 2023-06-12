@@ -237,7 +237,7 @@ class _PodVideoPlayerState extends State<PodVideoPlayer>
           opacity: value,
           child: child,
         ),
-        tween: Tween<double>(begin: 0.2, end: 0.4),
+        tween: Tween<double>(begin: 0.2, end: 0.5),
         duration: const Duration(milliseconds: 400),
         child: DecoratedBox(
           decoration: BoxDecoration(image: widget.videoThumbnail),
