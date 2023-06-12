@@ -60,7 +60,7 @@ class _FullScreenViewState extends State<FullScreenView>
               color: Colors.black,
               child: Padding(
                 padding: EdgeInsets.only(
-                    left: WidgetsBinding.instance.window.padding.top),
+                    right: WidgetsBinding.instance.window.padding.top),
                 child: SizedBox(
                   height: MediaQuery.of(context).size.height,
                   width: MediaQuery.of(context).size.width,
