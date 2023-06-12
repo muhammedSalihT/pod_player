@@ -48,7 +48,7 @@ class _PodCoreVideoPlayer extends StatelessWidget {
 
                     if (_podCtr.podVideoState == PodVideoState.paused &&
                         _podCtr.videoPosition == Duration.zero) {
-                      return SizedBox.expand(
+                      return SizedBox(
                         child: TweenAnimationBuilder<double>(
                           builder: (context, value, child) => Opacity(
                             opacity: value,
