@@ -28,6 +28,7 @@ class _PodCoreVideoPlayer extends StatelessWidget {
             tag: tag,
           ),
           child: Stack(
+            alignment: Alignment.center,
             // fit: StackFit.expand,
             children: [
               //remove a center wraper of aspect ratio here
