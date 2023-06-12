@@ -231,13 +231,13 @@ class _PodVideoPlayerState extends State<PodVideoPlayer>
       return _buildLoading();
     }
 
-    return SizedBox.expand(
+    return SizedBox(
       child: TweenAnimationBuilder<double>(
         builder: (context, value, child) => Opacity(
           opacity: value,
           child: child,
         ),
-        tween: Tween<double>(begin: 0.2, end: 0.5),
+        tween: Tween<double>(begin: 0.2, end: 0.7),
         duration: const Duration(milliseconds: 400),
         child: DecoratedBox(
           decoration: BoxDecoration(image: widget.videoThumbnail),
