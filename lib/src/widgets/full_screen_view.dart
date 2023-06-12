@@ -59,6 +59,8 @@ class _FullScreenViewState extends State<FullScreenView>
             child: ColoredBox(
               color: Colors.black,
               child: SizedBox(
+                height: MediaQuery.of(context).size.height,
+                width: MediaQuery.of(context).size.width,
                 child: _podCtr.videoCtr == null
                     ? loadingWidget
                     : _podCtr.videoCtr!.value.isInitialized
