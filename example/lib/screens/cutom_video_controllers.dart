@@ -99,116 +99,118 @@ class _CustomVideoControllsState extends State<CustomVideoControlls> {
     );
     return Scaffold(
       appBar: AppBar(title: const Text('Custom Player')),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            sizeH20,
-            PodVideoPlayer(
-              alwaysShowProgressBar: alwaysShowProgressBar,
-              controller: controller,
-              matchFrameAspectRatioToVideo: true,
-              matchVideoAspectRatioToFrame: true,
-              videoTitle: videoTitle,
-            ),
-            Padding(
-              padding: const EdgeInsets.all(12.0),
-              child: Row(
-                children: [
-                  const Text('Video url : '),
-                  Expanded(
-                    child: Text(
-                      controller.videoUrl ?? '',
-                      style: const TextStyle(color: Colors.grey),
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              sizeH20,
+              PodVideoPlayer(
+                alwaysShowProgressBar: alwaysShowProgressBar,
+                controller: controller,
+                matchFrameAspectRatioToVideo: true,
+                matchVideoAspectRatioToFrame: true,
+                videoTitle: videoTitle,
+              ),
+              Padding(
+                padding: const EdgeInsets.all(12.0),
+                child: Row(
+                  children: [
+                    const Text('Video url : '),
+                    Expanded(
+                      child: Text(
+                        controller.videoUrl ?? '',
+                        style: const TextStyle(color: Colors.grey),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(20),
-              child: Column(
-                children: [
-                  Text(
-                    'Video state: ${controller.videoState.name}',
-                    style: const TextStyle(color: Colors.red, fontSize: 18),
-                  ),
-                  sizeH20,
-                  Text(
-                    '$totalHour hour: '
-                    '$totalMinute minute: '
-                    '$totalSeconds seconds',
-                    style: textStyle,
-                  ),
-                  sizeH20,
-                  _loadVideoFromUrl(),
-                  sizeH20,
-                  _loadVideoFromVimeo(),
-                  sizeH20,
-                  _loadVideoFromYoutube(),
-                  sizeH20,
-                  _iconButton(
-                      'Hide progress bar on overlay hidden', Icons.hide_source,
-                      onPressed: () {
-                    setState(() {
-                      alwaysShowProgressBar = false;
-                    });
-                  }),
-                  sizeH20,
-                  _iconButton('Show Overlay', Icons.slideshow_outlined,
-                      onPressed: () {
-                    controller.showOverlay();
-                  }),
-                  sizeH20,
-                  _iconButton('Hide Overlay', Icons.hide_image, onPressed: () {
-                    controller.hideOverlay();
-                  }),
-                  _iconButton('Backward video 5s', Icons.replay_5_rounded,
-                      onPressed: () {
-                    controller.doubleTapVideoBackward(5);
-                  }),
-                  sizeH20,
-                  _iconButton('Forward video 5s', Icons.forward_5_rounded,
-                      onPressed: () {
-                    controller.doubleTapVideoForward(5);
-                  }),
-                  sizeH20,
-                  _iconButton(
-                      'Video Jump to 01:00 minute', Icons.fast_forward_rounded,
-                      onPressed: () {
-                    controller.videoSeekTo(const Duration(minutes: 1));
-                  }),
-                  sizeH20,
-                  _iconButton('Enable full screen', Icons.fullscreen,
-                      onPressed: () {
-                    controller.enableFullScreen();
-                  }),
-                  sizeH20,
-                  _iconButton(controller.isMute ? 'UnMute video' : 'mute video',
-                      controller.isMute ? Icons.volume_up : Icons.volume_off,
-                      onPressed: () {
-                    controller.toggleVolume();
-                  }),
-                  sizeH20,
-                  sizeH20,
-                  Text(
-                    'Is video initialized: ${controller.isInitialised}\n'
-                    'Is video playing: ${controller.isVideoPlaying}\n'
-                    'Is video Buffering: ${controller.isVideoBuffering}\n'
-                    'Is video looping: ${controller.isVideoLooping}\n'
-                    'Is video in fullscreeen: ${controller.isFullScreen}',
-                    style: textStyle,
-                  ),
-                  sizeH20,
-                  Text(
-                    'Total Video length: ${controller.totalVideoLength}',
-                    style: textStyle,
-                  )
-                ],
-              ),
-            )
-          ],
+              Padding(
+                padding: const EdgeInsets.all(20),
+                child: Column(
+                  children: [
+                    Text(
+                      'Video state: ${controller.videoState.name}',
+                      style: const TextStyle(color: Colors.red, fontSize: 18),
+                    ),
+                    sizeH20,
+                    Text(
+                      '$totalHour hour: '
+                      '$totalMinute minute: '
+                      '$totalSeconds seconds',
+                      style: textStyle,
+                    ),
+                    sizeH20,
+                    _loadVideoFromUrl(),
+                    sizeH20,
+                    _loadVideoFromVimeo(),
+                    sizeH20,
+                    _loadVideoFromYoutube(),
+                    sizeH20,
+                    _iconButton('Hide progress bar on overlay hidden',
+                        Icons.hide_source, onPressed: () {
+                      setState(() {
+                        alwaysShowProgressBar = false;
+                      });
+                    }),
+                    sizeH20,
+                    _iconButton('Show Overlay', Icons.slideshow_outlined,
+                        onPressed: () {
+                      controller.showOverlay();
+                    }),
+                    sizeH20,
+                    _iconButton('Hide Overlay', Icons.hide_image,
+                        onPressed: () {
+                      controller.hideOverlay();
+                    }),
+                    _iconButton('Backward video 5s', Icons.replay_5_rounded,
+                        onPressed: () {
+                      controller.doubleTapVideoBackward(5);
+                    }),
+                    sizeH20,
+                    _iconButton('Forward video 5s', Icons.forward_5_rounded,
+                        onPressed: () {
+                      controller.doubleTapVideoForward(5);
+                    }),
+                    sizeH20,
+                    _iconButton('Video Jump to 01:00 minute',
+                        Icons.fast_forward_rounded, onPressed: () {
+                      controller.videoSeekTo(const Duration(minutes: 1));
+                    }),
+                    sizeH20,
+                    _iconButton('Enable full screen', Icons.fullscreen,
+                        onPressed: () {
+                      controller.enableFullScreen();
+                    }),
+                    sizeH20,
+                    _iconButton(
+                        controller.isMute ? 'UnMute video' : 'mute video',
+                        controller.isMute ? Icons.volume_up : Icons.volume_off,
+                        onPressed: () {
+                      controller.toggleVolume();
+                    }),
+                    sizeH20,
+                    sizeH20,
+                    Text(
+                      'Is video initialized: ${controller.isInitialised}\n'
+                      'Is video playing: ${controller.isVideoPlaying}\n'
+                      'Is video Buffering: ${controller.isVideoBuffering}\n'
+                      'Is video looping: ${controller.isVideoLooping}\n'
+                      'Is video in fullscreeen: ${controller.isFullScreen}',
+                      style: textStyle,
+                    ),
+                    sizeH20,
+                    Text(
+                      'Total Video length: ${controller.totalVideoLength}',
+                      style: textStyle,
+                    )
+                  ],
+                ),
+              )
+            ],
+          ),
         ),
       ),
       floatingActionButton: FloatingActionButton(
