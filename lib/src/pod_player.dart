@@ -231,7 +231,7 @@ class _PodVideoPlayerState extends State<PodVideoPlayer>
       return _buildLoading();
     }
 
-    return SizedBox.square(
+    return SizedBox.fromSize(
       child: TweenAnimationBuilder<double>(
         builder: (context, value, child) => Opacity(
           opacity: value,
