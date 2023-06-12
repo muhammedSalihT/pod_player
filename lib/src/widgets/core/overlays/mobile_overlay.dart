@@ -69,8 +69,11 @@ class _MobileOverlay extends StatelessWidget {
             children: [
               IconButton(
                 onPressed: () {
-                  Navigator.pop(context);
-                  _podCtr.disableFullScreen(context, tag);
+                  if (!_podCtr.isFullScreen) {
+                    Navigator.pop(context);
+                  } else {
+                    _podCtr.disableFullScreen(context, tag);
+                  }
                 },
                 icon: const Icon(
                   Icons.keyboard_backspace_rounded,
