@@ -58,19 +58,23 @@ class _FullScreenViewState extends State<FullScreenView>
           builder: (_podCtr) => Center(
             child: ColoredBox(
               color: Colors.black,
-              child: SizedBox(
-                height: MediaQuery.of(context).size.height,
-                width: MediaQuery.of(context).size.width,
-                child: _podCtr.videoCtr == null
-                    ? loadingWidget
-                    : _podCtr.videoCtr!.value.isInitialized
-                        ? _PodCoreVideoPlayer(
-                            tag: widget.tag,
-                            videoPlayerCtr: _podCtr.videoCtr!,
-                            videoAspectRatio:
-                                _podCtr.videoCtr?.value.aspectRatio ?? 16 / 9,
-                          )
-                        : loadingWidget,
+              child: Padding(
+                padding: EdgeInsets.only(
+                    left: WidgetsBinding.instance.window.padding.top),
+                child: SizedBox(
+                  height: MediaQuery.of(context).size.height,
+                  width: MediaQuery.of(context).size.width,
+                  child: _podCtr.videoCtr == null
+                      ? loadingWidget
+                      : _podCtr.videoCtr!.value.isInitialized
+                          ? _PodCoreVideoPlayer(
+                              tag: widget.tag,
+                              videoPlayerCtr: _podCtr.videoCtr!,
+                              videoAspectRatio:
+                                  _podCtr.videoCtr?.value.aspectRatio ?? 16 / 9,
+                            )
+                          : loadingWidget,
+                ),
               ),
             ),
           ),
