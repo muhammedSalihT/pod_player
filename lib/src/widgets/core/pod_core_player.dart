@@ -48,17 +48,20 @@ class _PodCoreVideoPlayer extends StatelessWidget {
 
                     if (_podCtr.podVideoState == PodVideoState.paused &&
                         _podCtr.videoPosition == Duration.zero) {
-                      return SizedBox(
-                        child: TweenAnimationBuilder<double>(
-                          builder: (context, value, child) => Opacity(
-                            opacity: value,
-                            child: child,
-                          ),
-                          tween: Tween<double>(begin: 0.7, end: 1),
-                          duration: const Duration(milliseconds: 400),
-                          child: DecoratedBox(
-                            decoration: BoxDecoration(
-                              image: _podCtr.videoThumbnail,
+                      return AspectRatio(
+                        aspectRatio: videoAspectRatio,
+                        child: SizedBox(
+                          child: TweenAnimationBuilder<double>(
+                            builder: (context, value, child) => Opacity(
+                              opacity: value,
+                              child: child,
+                            ),
+                            tween: Tween<double>(begin: 0.7, end: 1),
+                            duration: const Duration(milliseconds: 400),
+                            child: DecoratedBox(
+                              decoration: BoxDecoration(
+                                image: _podCtr.videoThumbnail,
+                              ),
                             ),
                           ),
                         ),
