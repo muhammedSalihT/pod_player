@@ -5,6 +5,8 @@ class _PodUiController extends _PodBaseController {
   PodProgressBarConfig podProgressBarConfig = const PodProgressBarConfig();
   Widget Function(OverLayOptions options)? overlayBuilder;
   Widget? videoTitle;
+  void Function()? onExtraButtonPressed;
+  Widget? extraButtonBeforeMore;
   DecorationImage? videoThumbnail;
 
   /// Callback when fullscreen mode changes
