@@ -31,7 +31,7 @@ class _PodCoreVideoPlayer extends StatelessWidget {
             children: [
               //remove a center wraper of aspect ratio here
               AspectRatio(
-                aspectRatio: 20 / 9,
+                aspectRatio: videoAspectRatio,
                 child: VideoPlayer(videoPlayerCtr),
               ),
               GetBuilder<PodGetXVideoController>(
