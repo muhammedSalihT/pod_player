@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
@@ -166,9 +167,9 @@ class PodGetXVideoController extends _PodGesturesController {
           throw Exception('file doesnt support web');
         }
 
-        ///
+        //maybe
         _videoCtr = VideoPlayerController.file(
-          playVideoFrom.file!,
+          File(playVideoFrom.file.toString()),
           closedCaptionFile: playVideoFrom.closedCaptionFile,
           videoPlayerOptions: playVideoFrom.videoPlayerOptions,
         );
