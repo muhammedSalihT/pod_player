@@ -16,7 +16,7 @@ class PodPlayerConfig {
     this.isLooping = false,
     this.forcedVideoFocus = false,
     this.wakelockEnabled = true,
-    this.videoQualityPriority = const [1080, 720, 480, 360, 240],
+    this.videoQualityPriority = const [1080, 720, 360],
   });
 
   PodPlayerConfig copyWith({
