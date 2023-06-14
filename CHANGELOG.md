@@ -7,7 +7,7 @@
   ```dart
   controller = PodPlayerController(
   podPlayerConfig: const PodPlayerConfig(
-    videoQualityPriority: [1080, 720, 360],
+    videoQualityPriority: [1080, 720, 480, 360, 240],
   ),
   )..initialise()
   ```
