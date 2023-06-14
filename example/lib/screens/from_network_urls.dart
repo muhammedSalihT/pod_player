@@ -17,11 +17,11 @@ class _PlayVideoFromAssetState extends State<PlayVideoFromNetworkQualityUrls> {
     controller = PodPlayerController(
       playVideoFrom: PlayVideoFrom.networkQualityUrls(
         videoUrls: [
-          // VideoQalityUrls(
-          //   quality: 360,
-          //   url:
-          //       'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4',
-          // ),
+          VideoQalityUrls(
+            quality: 360,
+            url:
+                'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4',
+          ),
           VideoQalityUrls(
             quality: 720,
             url:
