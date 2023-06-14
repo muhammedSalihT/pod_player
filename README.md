@@ -260,7 +260,7 @@ class _PlayVideoFromNetworkState extends State<PlayVideoFromNetwork> {
     podPlayerConfig: const PodPlayerConfig(
       autoPlay: true,
       isLooping: false,
-      videoQualityPriority: [1080, 720, 480, 360, 240]
+      videoQualityPriority: [720, 360]
     )
   )..initialise();
 ```
