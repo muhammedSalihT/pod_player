@@ -1,5 +1,3 @@
-import 'package:universal_html/html.dart';
-
 import '../../pod_player.dart';
 
 class PlayVideoFrom {
@@ -7,7 +5,7 @@ class PlayVideoFrom {
   final PodVideoPlayerType playerType;
   final VideoFormat? formatHint;
   final String? package;
-  final File? file;
+  final dynamic file;
   final List<VideoQalityUrls>? videoQualityUrls;
   final Future<ClosedCaptionFile>? closedCaptionFile;
   final VideoPlayerOptions? videoPlayerOptions;
