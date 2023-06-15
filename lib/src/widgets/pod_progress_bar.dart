@@ -50,11 +50,11 @@ class _PodProgressBarState extends State<PodProgressBar> {
       final Duration position =
           (videoPlayerValue?.duration ?? Duration.zero) * relative;
       await _podCtr.seekTo(position);
-      if (!_podCtr.videoCtr!.value.isPlaying) {
+      if (isPlayed == true) {
+        await _podCtr.videoCtr!.play();
         setState(() {
           isPlayed = false;
         });
-        await _podCtr.videoCtr!.play();
       }
     }
   }
