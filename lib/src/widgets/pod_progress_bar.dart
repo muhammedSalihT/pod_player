@@ -51,10 +51,10 @@ class _PodProgressBarState extends State<PodProgressBar> {
           (videoPlayerValue?.duration ?? Duration.zero) * relative;
       await _podCtr.seekTo(position);
       if (isPlayed == true) {
-        await _podCtr.videoCtr!.play();
         setState(() {
           isPlayed = false;
         });
+        await _podCtr.videoCtr!.play();
       }
     }
   }
@@ -96,7 +96,7 @@ class _PodProgressBarState extends State<PodProgressBar> {
               onHorizontalDragEnd: (DragEndDetails details) {
                 _podCtr.toggleVideoOverlay();
 
-                if (widget.onDragEnd != null ) {
+                if (widget.onDragEnd != null) {
                   widget.onDragEnd?.call();
                 }
 
