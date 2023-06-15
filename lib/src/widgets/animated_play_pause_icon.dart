@@ -77,7 +77,13 @@ class _AnimatedPlayPauseIconState extends State<_AnimatedPlayPauseIcon>
   Widget onStateChange(PodGetXVideoController _podCtr) {
     if (kIsWeb) return _playPause(_podCtr);
     if (_podCtr.podVideoState == PodVideoState.loading) {
-      return const SizedBox();
+      return const Center(
+        child: CircularProgressIndicator(
+          backgroundColor: Colors.transparent,
+          color: Colors.white,
+          strokeWidth: 2,
+        ),
+      );
     } else {
       return _playPause(_podCtr);
     }
