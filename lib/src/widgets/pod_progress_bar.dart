@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:get/instance_manager.dart';
@@ -51,6 +53,7 @@ class _PodProgressBarState extends State<PodProgressBar> {
           (videoPlayerValue?.duration ?? Duration.zero) * relative;
       await _podCtr.seekTo(position);
       if (isPlaying == true) {
+        log(isPlaying.toString());
         setState(() {
           isPlaying = false;
         });
