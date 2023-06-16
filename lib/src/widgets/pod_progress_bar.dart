@@ -32,11 +32,15 @@ class PodProgressBar extends StatefulWidget {
 }
 
 class _PodProgressBarState extends State<PodProgressBar> {
+  bool isPlaying = false;
   late final _podCtr = Get.find<PodGetXVideoController>(tag: widget.tag);
   late VideoPlayerValue? videoPlayerValue = _podCtr.videoCtr?.value;
 
   Future<void> seekToRelativePosition(Offset globalPosition) async {
     if (_podCtr.videoCtr!.value.isPlaying) {
+      setState(() {
+        isPlaying = true;
+      });
       await _podCtr.videoCtr!.pause();
     }
     final box = context.findRenderObject() as RenderBox?;
@@ -46,7 +50,12 @@ class _PodProgressBarState extends State<PodProgressBar> {
       final Duration position =
           (videoPlayerValue?.duration ?? Duration.zero) * relative;
       await _podCtr.seekTo(position);
-      await _podCtr.videoCtr!.play();
+      if (isPlaying == true) {
+        setState(() {
+          isPlaying = false;
+        });
+        await _podCtr.videoCtr!.play();
+      }
     }
   }
 
