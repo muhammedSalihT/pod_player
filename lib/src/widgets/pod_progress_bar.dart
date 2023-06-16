@@ -39,6 +39,9 @@ class _PodProgressBarState extends State<PodProgressBar> {
   late VideoPlayerValue? videoPlayerValue = _podCtr.videoCtr?.value;
 
   Future<void> seekToRelativePosition(Offset globalPosition) async {
+    setState(() {
+      isPlaying = false;
+    });
     if (_podCtr.videoCtr!.value.isPlaying) {
       setState(() {
         isPlaying = true;
@@ -53,10 +56,6 @@ class _PodProgressBarState extends State<PodProgressBar> {
           (videoPlayerValue?.duration ?? Duration.zero) * relative;
       await _podCtr.seekTo(position);
       if (isPlaying == true) {
-        log(isPlaying.toString());
-        setState(() {
-          isPlaying = false;
-        });
         await _podCtr.videoCtr!.play();
       }
     }
