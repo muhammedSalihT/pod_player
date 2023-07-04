@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:get/instance_manager.dart';
@@ -32,11 +34,21 @@ class PodProgressBar extends StatefulWidget {
 }
 
 class _PodProgressBarState extends State<PodProgressBar> {
+  bool isPlaying = false;
   late final _podCtr = Get.find<PodGetXVideoController>(tag: widget.tag);
   late VideoPlayerValue? videoPlayerValue = _podCtr.videoCtr?.value;
 
-  Future<void> seekToRelativePosition(Offset globalPosition) async {
+  Future<void> seekToRelativePosition(
+    Offset globalPosition,
+    BuildContext context,
+  ) async {
+    setState(() {
+      isPlaying = false;
+    });
     if (_podCtr.videoCtr!.value.isPlaying) {
+      setState(() {
+        isPlaying = true;
+      });
       await _podCtr.videoCtr!.pause();
     }
     final box = context.findRenderObject() as RenderBox?;
@@ -46,7 +58,9 @@ class _PodProgressBarState extends State<PodProgressBar> {
       final Duration position =
           (videoPlayerValue?.duration ?? Duration.zero) * relative;
       await _podCtr.seekTo(position);
-      await _podCtr.videoCtr!.play();
+      if (isPlaying == true) {
+        await _podCtr.videoCtr!.play();
+      }
     }
   }
 
@@ -69,7 +83,7 @@ class _PodProgressBarState extends State<PodProgressBar> {
                   return;
                 }
 
-                seekToRelativePosition(details.globalPosition);
+                seekToRelativePosition(details.globalPosition, context);
 
                 if (widget.onDragStart != null) {
                   widget.onDragStart?.call();
@@ -80,7 +94,7 @@ class _PodProgressBarState extends State<PodProgressBar> {
                   return;
                 }
                 // _podCtr.isShowOverlay(true);
-                seekToRelativePosition(details.globalPosition);
+                seekToRelativePosition(details.globalPosition,context);
 
                 widget.onDragUpdate?.call();
               },
@@ -97,7 +111,7 @@ class _PodProgressBarState extends State<PodProgressBar> {
                 if (!videoPlayerValue!.isInitialized) {
                   return;
                 }
-                seekToRelativePosition(details.globalPosition);
+                seekToRelativePosition(details.globalPosition,context);
               },
             );
           },
