@@ -97,7 +97,7 @@ class _PodVideoQualityController extends _PodVideoController {
     return _videoQualityUrl;
   }
 
-  Future<void> getVideoQualityUrlsFromYoutube(
+  Future<List<VideoQalityUrls>> getVideoQualityUrlsFromYoutube(
     String youtubeIdOrUrl,
     bool live,
   ) async {
@@ -105,10 +105,11 @@ class _PodVideoQualityController extends _PodVideoController {
     //     [];
     try {
       podVideoStateChanger(PodVideoState.loading);
-      final _vimeoVideoUrls = await VideoApis.getVimeoVideoQualityUrls(videoId);
+      final _vimeoVideoUrls =
+          await VideoApis.getVimeoVideoQualityUrls(youtubeIdOrUrl);
 
-      ///
       vimeoOrVideoUrls = _vimeoVideoUrls ?? [];
+      return vimeoOrVideoUrls;
     } catch (e) {
       rethrow;
     }
