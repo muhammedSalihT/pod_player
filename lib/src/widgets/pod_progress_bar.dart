@@ -64,7 +64,11 @@ class _PodProgressBarState extends State<PodProgressBar> {
 
   @override
   Widget build(BuildContext context) {
-    if (videoPlayerValue == null) return const SizedBox();
+    if (videoPlayerValue == null) {
+      return SizedBox(
+        height: widget.podProgressBarConfig.circleHandlerRadius,
+      );
+    }
 
     return GetBuilder<PodGetXVideoController>(
       tag: widget.tag,
