@@ -257,3 +257,33 @@ class _ProgressBarPainter extends CustomPainter {
     );
   }
 }
+
+
+
+
+
+// Future<void> seekToRelativePosition(
+//     Offset globalPosition,
+//     BuildContext context,
+//   ) async {
+//     setState(() {
+//       isPlaying = false;
+//     });
+//     if (_podCtr.videoCtr!.value.isPlaying) {
+//       setState(() {
+//         isPlaying = true;
+//       });
+//       await _podCtr.videoCtr!.pause();
+//     }
+//     final box = context.findRenderObject() as RenderBox?;
+//     if (box != null) {
+//       final Offset tapPos = box.globalToLocal(globalPosition);
+//       final double relative = tapPos.dx / box.size.width;
+//       final Duration position =
+//           (videoPlayerValue?.duration ?? Duration.zero) * relative;
+//       await _podCtr.seekTo(position);
+//       if (isPlaying == true) {
+//         await _podCtr.videoCtr!.play();
+//       }
+//     }
+//   }
