@@ -99,6 +99,7 @@ class _PodProgressBarState extends State<PodProgressBar> {
                   return;
                 }
                 seekToRelativePosition(details.globalPosition);
+                _podCtr.videoCtr!.play();
               },
             );
           },
