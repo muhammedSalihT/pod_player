@@ -98,7 +98,10 @@ class _PodProgressBarState extends State<PodProgressBar> {
                 if (!videoPlayerValue!.isInitialized) {
                   return;
                 }
+
                 seekToRelativePosition(details.globalPosition);
+
+                widget.onDragUpdate?.call();
               },
             );
           },
