@@ -95,6 +95,7 @@ class _PodProgressBarState extends State<PodProgressBar> {
                 _podCtr.videoCtr!.play();
               },
               onTapDown: (TapDownDetails details) {
+                _podCtr.videoCtr!.pause();
                 if (!videoPlayerValue!.isInitialized) {
                   return;
                 }
