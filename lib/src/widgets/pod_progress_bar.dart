@@ -95,13 +95,16 @@ class _PodProgressBarState extends State<PodProgressBar> {
                 _podCtr.videoCtr!.play();
               },
               onTapDown: (TapDownDetails details) {
+                if (_podCtr.videoCtr!.value.isPlaying) {
+                  _podCtr.videoCtr!.pause();
+                }
+
                 if (!videoPlayerValue!.isInitialized) {
                   return;
                 }
                 seekToRelativePosition(details.globalPosition);
-                _podCtr.videoCtr!.value.isPlaying
-                    ? _podCtr.videoCtr!.play()
-                    : _podCtr.videoCtr!.pause();
+
+                _podCtr.videoCtr!.play();
               },
             );
           },
