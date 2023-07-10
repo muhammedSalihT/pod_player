@@ -1,6 +1,6 @@
 class VideoQalityUrls {
   int quality;
-  String url;
+  String? url;
   VideoQalityUrls({
     required this.quality,
     required this.url,
