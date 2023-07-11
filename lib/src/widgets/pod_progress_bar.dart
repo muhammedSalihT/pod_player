@@ -1,8 +1,11 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:get/instance_manager.dart';
 import 'package:video_player/video_player.dart';
 
+import '../../pod_player.dart';
 import '../controllers/pod_getx_video_controller.dart';
 import '../models/pod_progress_bar_config.dart';
 
@@ -36,7 +39,9 @@ class _PodProgressBarState extends State<PodProgressBar> {
   late final _podCtr = Get.find<PodGetXVideoController>(tag: widget.tag);
   late VideoPlayerValue? videoPlayerValue = _podCtr.videoCtr?.value;
 
-  void seekToRelativePosition(Offset globalPosition) {
+  void seekToRelativePosition(
+    Offset globalPosition,
+  ) {
     final box = context.findRenderObject() as RenderBox?;
     if (box != null) {
       final Offset tapPos = box.globalToLocal(globalPosition);
@@ -70,7 +75,9 @@ class _PodProgressBarState extends State<PodProgressBar> {
                   return;
                 }
 
-                seekToRelativePosition(details.globalPosition);
+                seekToRelativePosition(
+                  details.globalPosition,
+                );
 
                 if (widget.onDragStart != null) {
                   widget.onDragStart?.call();
@@ -81,7 +88,9 @@ class _PodProgressBarState extends State<PodProgressBar> {
                   return;
                 }
                 // _podCtr.isShowOverlay(true);
-                seekToRelativePosition(details.globalPosition);
+                seekToRelativePosition(
+                  details.globalPosition,
+                );
 
                 widget.onDragUpdate?.call();
               },
@@ -95,13 +104,22 @@ class _PodProgressBarState extends State<PodProgressBar> {
                 _podCtr.videoCtr!.play();
               },
               onTapDown: (TapDownDetails details) {
+                seekToRelativePosition(details.globalPosition);
+
                 if (!videoPlayerValue!.isInitialized) {
                   return;
                 }
+
+                if (widget.onDragEnd != null) {
+                  widget.onDragEnd?.call();
+                }
+
                 if (_podCtr.videoCtr!.value.isPlaying) {
                   _podCtr.videoCtr!.pause();
+                  Timer(const Duration(milliseconds: 1), () {
+                    _podCtr.videoCtr!.play();
+                  });
                 }
-                seekToRelativePosition(details.globalPosition);
               },
             );
           },

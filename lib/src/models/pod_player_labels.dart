@@ -24,7 +24,7 @@ class PodPlayerLabels {
     this.exitFullScreen,
     this.loopVideo = 'Loop Video',
     this.playbackSpeed = 'Playback speed',
-    this.error = 'Somthing went wrong',
+    this.error = 'Something went wrong',
     this.quality = 'Quality',
     this.optionEnabled = 'on',
     this.optionDisabled = 'off',

@@ -119,6 +119,7 @@ class VideoApis {
             }
           }),
         );
+        log(urls.toString());
       }
       // Close the YoutubeExplode's http client.
       yt.close();
