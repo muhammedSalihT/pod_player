@@ -33,7 +33,17 @@ class _PodCoreVideoPlayer extends StatelessWidget {
               //remove a center wraper of aspect ratio here
               AspectRatio(
                 aspectRatio: videoAspectRatio,
-                child: VideoPlayer(videoPlayerCtr),
+                child: ImageFiltered(
+                  imageFilter: _podCtr.vimeoPlayingVideoQuality == 240 ||
+                          _podCtr.vimeoPlayingVideoQuality == 480
+                      ? ImageFilter.blur(
+                          sigmaY: .2,
+                          sigmaX: .2,
+                          tileMode: TileMode.decal,
+                        )
+                      : ImageFilter.blur(),
+                  child: VideoPlayer(videoPlayerCtr),
+                ),
               ),
               GetBuilder<PodGetXVideoController>(
                 tag: tag,

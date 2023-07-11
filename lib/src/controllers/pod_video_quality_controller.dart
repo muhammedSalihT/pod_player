@@ -54,16 +54,6 @@ class _PodVideoQualityController extends _PodVideoController {
     _urls?.removeWhere((element) => element.quality == 144);
     _urls?.removeWhere((element) => element.quality > 720);
 
-    _urls?.map((element) {
-      if (element.quality <= 240 && element.quality < 360) {
-        element.url = _urls.where((element) => element.quality > 299).first.url;
-      }
-
-      if (element.quality > 360 && element.quality < 720) {
-        element.url = _urls.where((element) => element.quality > 360).first.url;
-      }
-    });
-
     if (kIsWeb) {}
 
     ///sort
@@ -118,13 +108,41 @@ class _PodVideoQualityController extends _PodVideoController {
   }
 
   Future<void> changeVideoQuality(int? quality, String? url) async {
+    print(url.toString());
     if (vimeoOrVideoUrls.isEmpty) {
       throw Exception('videoQuality cannot be empty');
     }
 
     if (url == '' && vimeoPlayingVideoQuality != quality) {
+      if (quality == 240) {
+        _videoQualityUrl = vimeoOrVideoUrls
+            .where((element) => element.quality == 360)
+            .first
+            .url!;
+      }
+      if (quality == 480) {
+        _videoQualityUrl = vimeoOrVideoUrls
+            .where((element) => element.quality == 720)
+            .first
+            .url!;
+      }
+
+      podLog(_videoQualityUrl);
+      vimeoPlayingVideoQuality = quality;
+      _videoCtr?.removeListener(videoListner);
       podVideoStateChanger(PodVideoState.paused);
       podVideoStateChanger(PodVideoState.loading);
+      playingVideoUrl = _videoQualityUrl;
+      _videoCtr = VideoPlayerController.network(_videoQualityUrl);
+      await _videoCtr?.initialize();
+      _videoDuration = _videoCtr?.value.duration ?? Duration.zero;
+      _videoCtr?.addListener(videoListner);
+      await _videoCtr?.seekTo(_videoPosition);
+      setVideoPlayBack(_currentPaybackSpeed);
+      podVideoStateChanger(PodVideoState.playing);
+      onVimeoVideoQualityChanged?.call();
+      update();
+      update(['update-all']);
       Timer(const Duration(milliseconds: 1500), () {
         podVideoStateChanger(PodVideoState.playing);
       });
