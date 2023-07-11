@@ -3,9 +3,6 @@ part of 'pod_getx_video_controller.dart';
 class _PodVideoQualityController extends _PodVideoController {
   ///
   int? vimeoPlayingVideoQuality;
-  String? lawQuality;
-  String? midQuality;
-  String? highQuality;
 
   ///vimeo all quality urls
   List<VideoQalityUrls> vimeoOrVideoUrls = [];
@@ -55,6 +52,17 @@ class _PodVideoQualityController extends _PodVideoController {
 
     ///has issues with 144p in web
     _urls?.removeWhere((element) => element.quality == 144);
+    _urls?.removeWhere((element) => element.quality > 720);
+
+    _urls?.map((element) {
+      if (element.quality <= 240 && element.quality < 360) {
+        element.url = _urls.where((element) => element.quality > 299).first.url;
+      }
+
+      if (element.quality > 360 && element.quality < 720) {
+        element.url = _urls.where((element) => element.quality > 360).first.url;
+      }
+    });
 
     if (kIsWeb) {}
 

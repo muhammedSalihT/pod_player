@@ -4,6 +4,9 @@ part of 'pod_getx_video_controller.dart';
 class _PodBaseController extends GetxController {
   ///main video controller
   VideoPlayerController? _videoCtr;
+  String? lawQuality;
+  String? midQuality;
+  String? highQuality;
 
   ///
   late PodVideoPlayerType _videoPlayerType;
@@ -36,6 +39,14 @@ class _PodBaseController extends GetxController {
 
   late BuildContext mainContext;
   late BuildContext fullScreenContext;
+
+  void getMidQuality({String? url}) {
+    midQuality = url;
+  }
+
+  void getHighQuality({String? url}) {
+    highQuality = url;
+  }
 
   ///**listners
 
