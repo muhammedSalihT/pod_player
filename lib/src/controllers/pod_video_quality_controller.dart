@@ -116,9 +116,9 @@ class _PodVideoQualityController extends _PodVideoController {
     }
 
     if (url == '' && vimeoPlayingVideoQuality != quality) {
-      if (quality == 240) {
+      if (quality == 240 && url == '') {
         _videoQualityUrl = vimeoOrVideoUrls
-            .where((element) => element.quality == 360)
+            .where((element) => element.quality > 240)
             .first
             .url!;
         podLog(_videoQualityUrl);
@@ -138,9 +138,9 @@ class _PodVideoQualityController extends _PodVideoController {
         update();
         update(['update-all']);
       }
-      if (quality == 480) {
+      if (quality == 480 && url == '') {
         _videoQualityUrl = vimeoOrVideoUrls
-            .where((element) => element.quality == 720)
+            .where((element) => element.quality > 480)
             .first
             .url!;
         podLog(_videoQualityUrl);

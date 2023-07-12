@@ -99,13 +99,16 @@ class VideoApis {
             await yt.videos.streamsClient.getManifest(youtubeIdOrUrl);
         urls.addAll(
           manifest.video.map((element) {
-            log(element.toString());
             if (element.toString().substring(0, 5) == 'Muxed') {
+              log(element.qualityLabel.toString());
+              log(element.toString());
               return VideoQalityUrls(
                 quality: int.parse(element.qualityLabel.split('p')[0]),
                 url: element.url.toString(),
               );
             } else {
+              log("else${element.toString()}");
+              log("else${element.qualityLabel.toString()}");
               return VideoQalityUrls(
                 quality: urls.any(
                   (ele) =>
