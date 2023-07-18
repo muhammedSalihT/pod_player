@@ -53,8 +53,10 @@ class _PodVideoQualityController extends _PodVideoController {
     ///has issues with 144p in web
     _urls?.removeWhere((element) => element.quality == 144);
     _urls?.removeWhere((element) => element.quality > 720);
-    _urls?.removeWhere((element) => element.quality == 640);
-    _urls?.removeWhere((element) => element.quality == 256);
+    _urls?.removeWhere(
+      (element) =>
+          element.url == '' && element.quality != 240 && element.quality != 480,
+    );
 
     if (kIsWeb) {}
 
@@ -115,6 +117,14 @@ class _PodVideoQualityController extends _PodVideoController {
       throw Exception('videoQuality cannot be empty');
     }
 
+    if (url == '' && quality != 240 && quality != 480) {
+      podVideoStateChanger(PodVideoState.paused);
+      podVideoStateChanger(PodVideoState.loading);
+      Timer(const Duration(milliseconds: 1000), () {
+        podVideoStateChanger(PodVideoState.playing);
+      });
+    }
+
     if (url == '' && vimeoPlayingVideoQuality != quality) {
       if (quality == 240 && url == '') {
         _videoQualityUrl = vimeoOrVideoUrls
@@ -160,11 +170,6 @@ class _PodVideoQualityController extends _PodVideoController {
         update();
         update(['update-all']);
       }
-      podVideoStateChanger(PodVideoState.paused);
-      podVideoStateChanger(PodVideoState.loading);
-      Timer(const Duration(milliseconds: 1000), () {
-        podVideoStateChanger(PodVideoState.playing);
-      });
     } else {
       if (vimeoPlayingVideoQuality != quality) {
         _videoQualityUrl = vimeoOrVideoUrls

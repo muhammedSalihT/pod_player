@@ -219,8 +219,8 @@ class _PodVideoPlayerState extends State<PodVideoPlayer>
 
   Widget _buildLoading() {
     return SizedBox(
-      height: 50,
-      width: 50,
+      height: 30,
+      width: 30,
       child: widget.onLoading?.call(context) ??
           const CircularProgressIndicator(
             backgroundColor: Colors.black87,

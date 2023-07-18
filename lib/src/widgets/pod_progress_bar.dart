@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
@@ -36,6 +37,7 @@ class PodProgressBar extends StatefulWidget {
 
 class _PodProgressBarState extends State<PodProgressBar> {
   bool isPlaying = false;
+  Duration currentPossition = Duration.zero;
   late final _podCtr = Get.find<PodGetXVideoController>(tag: widget.tag);
   late VideoPlayerValue? videoPlayerValue = _podCtr.videoCtr?.value;
 
@@ -48,6 +50,9 @@ class _PodProgressBarState extends State<PodProgressBar> {
       final double relative = tapPos.dx / box.size.width;
       final Duration position =
           (videoPlayerValue?.duration ?? Duration.zero) * relative;
+      setState(() {
+        currentPossition = position;
+      });
       _podCtr.seekTo(position);
     }
   }
@@ -104,6 +109,7 @@ class _PodProgressBarState extends State<PodProgressBar> {
                 _podCtr.videoCtr!.play();
               },
               onTapDown: (TapDownDetails details) {
+                _podCtr.toggleVideoOverlay();
                 seekToRelativePosition(details.globalPosition);
 
                 if (!videoPlayerValue!.isInitialized) {
@@ -113,12 +119,19 @@ class _PodProgressBarState extends State<PodProgressBar> {
                 if (widget.onDragEnd != null) {
                   widget.onDragEnd?.call();
                 }
-
                 if (_podCtr.videoCtr!.value.isPlaying) {
                   _podCtr.videoCtr!.pause();
-                  Timer(const Duration(milliseconds: 1), () {
-                    _podCtr.videoCtr!.play();
-                  });
+                  log(currentPossition.toString());
+                  Future.delayed(
+                    const Duration(milliseconds: 500),
+                    () {
+                      log(_podCtr.videoCtr!.value.position.toString());
+                      if (_podCtr.podVideoState == PodVideoState.loading &&
+                          _podCtr.videoPosition == currentPossition) {
+                        _podCtr.videoCtr?.play();
+                      }
+                    },
+                  );
                 }
               },
             );
