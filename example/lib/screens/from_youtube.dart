@@ -17,7 +17,7 @@ class _PlayVideoFromVimeoIdState extends State<PlayVideoFromYoutube> {
   void initState() {
     controller = PodPlayerController(
       playVideoFrom:
-          PlayVideoFrom.youtube('https://www.youtube.com/watch?v=-ws0KkJ3f7M'),
+          PlayVideoFrom.youtube('https://www.youtube.com/watch?v=EUn5NMejSJo'),
       podPlayerConfig: const PodPlayerConfig(
         videoQualityPriority: [360],
         autoPlay: false,

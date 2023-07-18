@@ -97,6 +97,7 @@ class VideoApis {
       } else {
         final manifest =
             await yt.videos.streamsClient.getManifest(youtubeIdOrUrl);
+        log(manifest.audio.toString());
         urls.addAll(
           manifest.video.map((element) {
             if (element.toString().substring(0, 5) == 'Muxed') {
