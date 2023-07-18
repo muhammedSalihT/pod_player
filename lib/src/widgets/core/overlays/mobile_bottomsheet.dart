@@ -238,19 +238,19 @@ class _MobileOverlayBottomControlles extends StatelessWidget {
                     if (_podCtr.isFullScreen) {
                       _podCtr.disableFullScreen(context, tag);
                     } else {
-                      _podCtr.enableFullScreen(tag);
+                      if (_podCtr.podVideoState != PodVideoState.loading) {
+                        _podCtr.enableFullScreen(tag);
+                      }
                     }
                   } else {
                     _podCtr.toggleVideoOverlay();
                   }
                 },
-                child: _podCtr.podVideoState != PodVideoState.loading
-                    ? Icon(
-                        _podCtr.isFullScreen
-                            ? Icons.fullscreen_exit
-                            : Icons.fullscreen,
-                      )
-                    : const SizedBox(),
+                child: Icon(
+                  _podCtr.isFullScreen
+                      ? Icons.fullscreen_exit
+                      : Icons.fullscreen,
+                ),
               ),
             ],
           ),
