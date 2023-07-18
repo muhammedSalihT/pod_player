@@ -246,11 +246,13 @@ class _MobileOverlayBottomControlles extends StatelessWidget {
                     _podCtr.toggleVideoOverlay();
                   }
                 },
-                child: Icon(
-                  _podCtr.isFullScreen
-                      ? Icons.fullscreen_exit
-                      : Icons.fullscreen,
-                ),
+                child: _podCtr.podVideoState != PodVideoState.loading
+                    ? Icon(
+                        _podCtr.isFullScreen
+                            ? Icons.fullscreen_exit
+                            : Icons.fullscreen,
+                      )
+                    : const SizedBox(),
               ),
             ],
           ),
