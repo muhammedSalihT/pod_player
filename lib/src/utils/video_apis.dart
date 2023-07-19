@@ -4,6 +4,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:youtube_explode_dart/youtube_explode_dart.dart';
+import '../controllers/pod_getx_video_controller.dart';
 import '../models/vimeo_models.dart';
 
 String podErrorString(String val) {
@@ -82,6 +83,7 @@ class VideoApis {
     bool live,
   ) async {
     try {
+      final qualityController = PodVideoQualityController();
       final yt = YoutubeExplode();
       final urls = <VideoQalityUrls>[];
       if (live) {
@@ -97,7 +99,10 @@ class VideoApis {
       } else {
         final manifest =
             await yt.videos.streamsClient.getManifest(youtubeIdOrUrl);
-        log(manifest.video.toString());
+
+        qualityController.getUrl(
+          url: manifest.audioOnly.withHighestBitrate().url.toString(),
+        );
         urls.addAll(
           manifest.video.map((element) {
             if (element.toString().substring(0, 5) == 'Muxed') {
@@ -118,7 +123,8 @@ class VideoApis {
                 )
                     ? 144
                     : int.parse(element.qualityLabel.split('p')[0]),
-                url: '',
+                url: element.url.toString(),
+                isMuxed: false,
               );
             }
           }),

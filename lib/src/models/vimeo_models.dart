@@ -5,6 +5,7 @@ class VideoQalityUrls {
   VideoQalityUrls({
     required this.quality,
     required this.url,
+    this.isMuxed = true,
   });
 
   @override

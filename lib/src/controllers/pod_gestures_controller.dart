@@ -1,6 +1,6 @@
 part of 'pod_getx_video_controller.dart';
 
-class _PodGesturesController extends _PodVideoQualityController {
+class _PodGesturesController extends PodVideoQualityController {
   //double tap
   Timer? leftDoubleTapTimer;
   Timer? rightDoubleTapTimer;

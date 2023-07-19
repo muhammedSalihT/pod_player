@@ -1,8 +1,10 @@
 part of 'pod_getx_video_controller.dart';
 
-class _PodVideoQualityController extends _PodVideoController {
+class PodVideoQualityController extends _PodVideoController {
   ///
   int? vimeoPlayingVideoQuality;
+
+  String? highAudioUrl;
 
   ///vimeo all quality urls
   List<VideoQalityUrls> vimeoOrVideoUrls = [];
@@ -24,6 +26,13 @@ class _PodVideoQualityController extends _PodVideoController {
     } catch (e) {
       rethrow;
     }
+  }
+
+  void getUrl({String? url}) {
+    highAudioUrl = url;
+    update();
+    update(['update-all']);
+    print(highAudioUrl);
   }
 
   Future<void> getQualityUrlsFromVimeoPrivateId(
@@ -53,10 +62,10 @@ class _PodVideoQualityController extends _PodVideoController {
     ///has issues with 144p in web
     _urls?.removeWhere((element) => element.quality == 144);
     _urls?.removeWhere((element) => element.quality > 720);
-    _urls?.removeWhere(
-      (element) =>
-          element.url == '' && element.quality != 240 && element.quality != 480,
-    );
+    // _urls?.removeWhere(
+    //   (element) =>
+    //       element.url == '' && element.quality != 240 && element.quality != 480,
+    // );
 
     if (kIsWeb) {}
 
@@ -111,36 +120,30 @@ class _PodVideoQualityController extends _PodVideoController {
         [];
   }
 
-  Future<void> changeVideoQuality(int? quality, String? url) async {
+  Future<void> changeVideoQuality(
+    int? quality,
+    String? url,
+    bool? isMuxed,
+  ) async {
     print(vimeoOrVideoUrls.toString());
     if (vimeoOrVideoUrls.isEmpty) {
       throw Exception('videoQuality cannot be empty');
     }
 
-    if (url == '' && quality != 240 && quality != 480) {
-      podVideoStateChanger(PodVideoState.paused);
-      podVideoStateChanger(PodVideoState.loading);
-      Timer(const Duration(milliseconds: 1000), () {
-        podVideoStateChanger(PodVideoState.playing);
-      });
-    }
+    // if (isMuxed==false) {
+    //   podVideoStateChanger(PodVideoState.paused);
+    //   podVideoStateChanger(PodVideoState.loading);
+    //   Timer(const Duration(milliseconds: 1000), () {
+    //     podVideoStateChanger(PodVideoState.playing);
+    //   });
+    // }
 
-    if (url == '' && vimeoPlayingVideoQuality != quality) {
-      if (quality == 240 && url == '') {
-        if (vimeoOrVideoUrls.any((element) => element.quality > 240)) {
-          _videoQualityUrl = vimeoOrVideoUrls
-              .where((element) => element.quality > 240)
-              .first
-              .url!;
-        } else {
-          vimeoPlayingVideoQuality = quality;
-          podVideoStateChanger(PodVideoState.paused);
-          podVideoStateChanger(PodVideoState.loading);
-          Timer(const Duration(milliseconds: 1000), () {
-            podVideoStateChanger(PodVideoState.playing);
-          });
-        }
-
+    if (isMuxed == false) {
+      if (vimeoPlayingVideoQuality != quality) {
+        _videoQualityUrl = vimeoOrVideoUrls
+            .where((element) => element.quality == quality)
+            .first
+            .url!;
         podLog(_videoQualityUrl);
         vimeoPlayingVideoQuality = quality;
         _videoCtr?.removeListener(videoListner);
@@ -158,38 +161,70 @@ class _PodVideoQualityController extends _PodVideoController {
         update();
         update(['update-all']);
       }
-      if (quality == 480 && url == '') {
-        if (vimeoOrVideoUrls.any((element) => element.quality > 480)) {
-          _videoQualityUrl = vimeoOrVideoUrls
-              .where((element) => element.quality > 480)
-              .first
-              .url!;
-        } else {
-          vimeoPlayingVideoQuality = quality;
-          podVideoStateChanger(PodVideoState.paused);
-          podVideoStateChanger(PodVideoState.loading);
-          Timer(const Duration(milliseconds: 1000), () {
-            podVideoStateChanger(PodVideoState.playing);
-          });
-        }
+      // if (quality == 240 && url == '') {
+      //   if (vimeoOrVideoUrls.any((element) => element.quality > 240)) {
+      //     _videoQualityUrl = vimeoOrVideoUrls
+      //         .where((element) => element.quality > 240)
+      //         .first
+      //         .url!;
+      //   } else {
+      //     vimeoPlayingVideoQuality = quality;
+      //     podVideoStateChanger(PodVideoState.paused);
+      //     podVideoStateChanger(PodVideoState.loading);
+      //     Timer(const Duration(milliseconds: 1000), () {
+      //       podVideoStateChanger(PodVideoState.playing);
+      //     });
+      //   }
 
-        podLog(_videoQualityUrl);
-        vimeoPlayingVideoQuality = quality;
-        _videoCtr?.removeListener(videoListner);
-        podVideoStateChanger(PodVideoState.paused);
-        podVideoStateChanger(PodVideoState.loading);
-        playingVideoUrl = _videoQualityUrl;
-        _videoCtr = VideoPlayerController.network(_videoQualityUrl);
-        await _videoCtr?.initialize();
-        _videoDuration = _videoCtr?.value.duration ?? Duration.zero;
-        _videoCtr?.addListener(videoListner);
-        await _videoCtr?.seekTo(_videoPosition);
-        setVideoPlayBack(_currentPaybackSpeed);
-        podVideoStateChanger(PodVideoState.playing);
-        onVimeoVideoQualityChanged?.call();
-        update();
-        update(['update-all']);
-      }
+      //   podLog(_videoQualityUrl);
+      //   vimeoPlayingVideoQuality = quality;
+      //   _videoCtr?.removeListener(videoListner);
+      //   podVideoStateChanger(PodVideoState.paused);
+      //   podVideoStateChanger(PodVideoState.loading);
+      //   playingVideoUrl = _videoQualityUrl;
+      //   _videoCtr = VideoPlayerController.network(_videoQualityUrl);
+      //   await _videoCtr?.initialize();
+      //   _videoDuration = _videoCtr?.value.duration ?? Duration.zero;
+      //   _videoCtr?.addListener(videoListner);
+      //   await _videoCtr?.seekTo(_videoPosition);
+      //   setVideoPlayBack(_currentPaybackSpeed);
+      //   podVideoStateChanger(PodVideoState.playing);
+      //   onVimeoVideoQualityChanged?.call();
+      //   update();
+      //   update(['update-all']);
+      // }
+      // if (quality == 480 && url == '') {
+      //   if (vimeoOrVideoUrls.any((element) => element.quality > 480)) {
+      //     _videoQualityUrl = vimeoOrVideoUrls
+      //         .where((element) => element.quality > 480)
+      //         .first
+      //         .url!;
+      //   } else {
+      //     vimeoPlayingVideoQuality = quality;
+      //     podVideoStateChanger(PodVideoState.paused);
+      //     podVideoStateChanger(PodVideoState.loading);
+      //     Timer(const Duration(milliseconds: 1000), () {
+      //       podVideoStateChanger(PodVideoState.playing);
+      //     });
+      //   }
+
+      //   podLog(_videoQualityUrl);
+      //   vimeoPlayingVideoQuality = quality;
+      //   _videoCtr?.removeListener(videoListner);
+      //   podVideoStateChanger(PodVideoState.paused);
+      //   podVideoStateChanger(PodVideoState.loading);
+      //   playingVideoUrl = _videoQualityUrl;
+      //   _videoCtr = VideoPlayerController.network(_videoQualityUrl);
+      //   await _videoCtr?.initialize();
+      //   _videoDuration = _videoCtr?.value.duration ?? Duration.zero;
+      //   _videoCtr?.addListener(videoListner);
+      //   await _videoCtr?.seekTo(_videoPosition);
+      //   setVideoPlayBack(_currentPaybackSpeed);
+      //   podVideoStateChanger(PodVideoState.playing);
+      //   onVimeoVideoQualityChanged?.call();
+      //   update();
+      //   update(['update-all']);
+      // }
     } else {
       if (vimeoPlayingVideoQuality != quality) {
         _videoQualityUrl = vimeoOrVideoUrls
