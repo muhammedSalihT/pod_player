@@ -76,6 +76,16 @@ class PodVideoQualityController extends _PodVideoController {
     vimeoOrVideoUrls = _urls ?? [];
   }
 
+  Future<void> _init() async {
+    try {
+      // AAC example: https://dl.espressif.com/dl/audio/ff-16b-2c-44100hz.aac
+      await _audioCtr
+          ?.setAudioSource(AudioSource.uri(Uri.parse(highAudioUrl!)));
+    } catch (e) {
+      print("Error loading audio source: $e");
+    }
+  }
+
   ///get vimeo quality `ex: 1080p` url
   VideoQalityUrls getQualityUrl(int quality) {
     return vimeoOrVideoUrls.firstWhere(
@@ -139,6 +149,7 @@ class PodVideoQualityController extends _PodVideoController {
     // }
 
     if (isMuxed == false) {
+      await _init();
       if (vimeoPlayingVideoQuality != quality) {
         _videoQualityUrl = vimeoOrVideoUrls
             .where((element) => element.quality == quality)
@@ -156,6 +167,7 @@ class PodVideoQualityController extends _PodVideoController {
         _videoCtr?.addListener(videoListner);
         await _videoCtr?.seekTo(_videoPosition);
         setVideoPlayBack(_currentPaybackSpeed);
+        await _audioCtr?.seek(_videoPosition);
         podVideoStateChanger(PodVideoState.playing);
         onVimeoVideoQualityChanged?.call();
         update();

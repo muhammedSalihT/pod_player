@@ -4,7 +4,7 @@ part of 'pod_getx_video_controller.dart';
 class _PodBaseController extends GetxController {
   ///main video controller
   VideoPlayerController? _videoCtr;
-
+  AudioPlayer? _audioCtr;
   String? lawQuality;
   String? midQuality;
   String? highQuality;
