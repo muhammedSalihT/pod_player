@@ -14,6 +14,7 @@ dependencies:
   lottie: ^2.3.2  
   # services
   video_player: ^2.4.5
+  just_audio: ^0.9.34
   http: ^0.13.4  
   get: ^4.6.5  
   wakelock: ^0.6.1+2 

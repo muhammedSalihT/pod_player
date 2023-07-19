@@ -4,6 +4,7 @@ part of 'pod_getx_video_controller.dart';
 class _PodBaseController extends GetxController {
   ///main video controller
   VideoPlayerController? _videoCtr;
+  AudioPlayer audioPlayerCtr = AudioPlayer();
   String? lawQuality;
   String? midQuality;
   String? highQuality;
@@ -82,9 +83,12 @@ class _PodBaseController extends GetxController {
 
   void _listneToVideoState() {
     podVideoStateChanger(
-      _videoCtr!.value.isBuffering || !_videoCtr!.value.isInitialized
+      _videoCtr!.value.isBuffering ||
+              !_videoCtr!.value.isInitialized ||
+              audioPlayerCtr.playerState.playing == false
           ? PodVideoState.loading
-          : _videoCtr!.value.isPlaying
+          : _videoCtr!.value.isPlaying &&
+                  audioPlayerCtr.playerState.playing == true
               ? PodVideoState.playing
               : PodVideoState.paused,
     );
