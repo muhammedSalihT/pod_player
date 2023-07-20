@@ -103,6 +103,7 @@ class VideoApis {
         qualityController.getUrl(
           url: manifest.audioOnly.withHighestBitrate().url.toString(),
         );
+
         urls.addAll(
           manifest.video.map((element) {
             if (element.toString().substring(0, 5) == 'Muxed') {

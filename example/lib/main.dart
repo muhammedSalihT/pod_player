@@ -45,6 +45,11 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
@@ -52,10 +57,9 @@ class _MainPageState extends State<MainPage> {
           shrinkWrap: true,
           children: [
             // _button('Play video from File'),
-            _button(
-              'Play video from Network',
-              onPressed: () => Navigator.of(context).pushNamed('/fromNetwork'),
-            ),
+            _button('Play video from Network', onPressed: () {
+              Navigator.of(context).pushNamed('/fromNetwork');
+            }),
             _button(
               'Play video from Youtube',
               onPressed: () => Navigator.of(context).pushNamed('/fromYoutube'),

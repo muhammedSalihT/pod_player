@@ -92,8 +92,9 @@ class _PodVideoController extends _PodUiController {
   }
 
   ///toogle play pause
-  void togglePlayPauseVideo() {
+  Future<void> togglePlayPauseVideo() async {
     isvideoPlaying = !isvideoPlaying;
+    !isvideoPlaying ? await _audioCtr.pause() : await _audioCtr.resume();
     podVideoStateChanger(
       isvideoPlaying ? PodVideoState.playing : PodVideoState.paused,
     );

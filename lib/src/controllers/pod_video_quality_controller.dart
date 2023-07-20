@@ -32,7 +32,7 @@ class PodVideoQualityController extends _PodVideoController {
     highAudioUrl = url;
     update();
     update(['update-all']);
-    print(highAudioUrl);
+    podLog(highAudioUrl.toString());
   }
 
   Future<void> getQualityUrlsFromVimeoPrivateId(
@@ -50,6 +50,18 @@ class PodVideoQualityController extends _PodVideoController {
       rethrow;
     }
   }
+
+  // Future<void> init() async {
+  //   podLog("init audio");
+  //   try {
+  //     // AAC example: https://dl.espressif.com/dl/audio/ff-16b-2c-44100hz.aac
+  //     await _audioCtr?.setSourceUrl(
+  //       'https://res.cloudinary.com/diqwddfh0/video/upload/v1686820373/ebfq5akmecslrig9abzz.mp3',
+  //     );
+  //   } catch (e) {
+  //     podLog("Error loading audio source: $e");
+  //   }
+  // }
 
   void sortQualityVideoUrls(
     List<VideoQalityUrls>? urls,
@@ -74,16 +86,6 @@ class PodVideoQualityController extends _PodVideoController {
 
     ///
     vimeoOrVideoUrls = _urls ?? [];
-  }
-
-  Future<void> _init() async {
-    try {
-      // AAC example: https://dl.espressif.com/dl/audio/ff-16b-2c-44100hz.aac
-      await _audioCtr
-          ?.setAudioSource(AudioSource.uri(Uri.parse(highAudioUrl!)));
-    } catch (e) {
-      print("Error loading audio source: $e");
-    }
   }
 
   ///get vimeo quality `ex: 1080p` url
@@ -130,11 +132,8 @@ class PodVideoQualityController extends _PodVideoController {
         [];
   }
 
-  Future<void> changeVideoQuality(
-    int? quality,
-    String? url,
-    bool? isMuxed,
-  ) async {
+  Future<void> changeVideoQuality(int? quality, String? url, bool? isMuxed,
+      PodGetXVideoController podCtr) async {
     print(vimeoOrVideoUrls.toString());
     if (vimeoOrVideoUrls.isEmpty) {
       throw Exception('videoQuality cannot be empty');
@@ -149,7 +148,6 @@ class PodVideoQualityController extends _PodVideoController {
     // }
 
     if (isMuxed == false) {
-      await _init();
       if (vimeoPlayingVideoQuality != quality) {
         _videoQualityUrl = vimeoOrVideoUrls
             .where((element) => element.quality == quality)
@@ -167,7 +165,11 @@ class PodVideoQualityController extends _PodVideoController {
         _videoCtr?.addListener(videoListner);
         await _videoCtr?.seekTo(_videoPosition);
         setVideoPlayBack(_currentPaybackSpeed);
-        await _audioCtr?.seek(_videoPosition);
+        await _audioCtr.play(
+          UrlSource(
+            'https://rr1---sn-gwpa-jv3z.googlevideo.com/videoplayback?expire=1689859531&ei=a-G4ZKCgOdqr9fwPlqyQoAI&ip=49.37.232.5&id=o-AL9Qt4CXCYyC1Tm2D5_xlPX-InVFOxPZzsEarhBGd0__&itag=251&source=youtube&requiressl=yes&mh=wp&mm=31%2C29&mn=sn-gwpa-jv3z%2Csn-gwpa-h55d&ms=au%2Crdu&mv=m&mvi=1&pl=20&initcwndbps=552500&spc=Ul2Sqys8PA0zd-lKFJ2eqlmhGTpRmKA&vprv=1&svpuc=1&mime=audio%2Fwebm&gir=yes&clen=119364144&dur=7650.201&lmt=1681276528246182&mt=1689837449&fvip=6&keepalive=yes&fexp=24007246%2C24363391%2C51000011&beids=24472443&c=ANDROID&txp=5432434&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cspc%2Cvprv%2Csvpuc%2Cmime%2Cgir%2Cclen%2Cdur%2Clmt&sig=AOq0QJ8wRAIgeTqD28lhE-Iclb0S1NgVTpnoxAFumDL6PzxEM3lW5l4CIF4zTSqaUMMNEiyerRrePNPjITnF4-JGi8Sr3CaW1-Yk&lsparams=mh%2Cmm%2Cmn%2Cms%2Cmv%2Cmvi%2Cpl%2Cinitcwndbps&lsig=AG3C_xAwRAIgfpFuBehO9S7s4MNZPnwYNROTvv0GJWcBb9L5FRzmjFoCICEH_eZ6G7GFxwyeI4S0B3usKZouWpCbgs2WB33kzFSP',
+          ),
+        );
         podVideoStateChanger(PodVideoState.playing);
         onVimeoVideoQualityChanged?.call();
         update();
@@ -239,6 +241,7 @@ class PodVideoQualityController extends _PodVideoController {
       // }
     } else {
       if (vimeoPlayingVideoQuality != quality) {
+        await _videoCtr?.pause();
         _videoQualityUrl = vimeoOrVideoUrls
             .where((element) => element.quality == quality)
             .first

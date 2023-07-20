@@ -143,6 +143,7 @@ class _VideoQualitySelectorMob extends StatelessWidget {
                     e.quality,
                     e.url.toString(),
                     e.isMuxed,
+                    _podCtr,
                   );
                 },
               ),

@@ -1,11 +1,12 @@
 import 'dart:async';
 import 'dart:io';
+import 'dart:math';
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:just_audio/just_audio.dart';
 import 'package:universal_html/html.dart' as _html;
 import 'package:wakelock/wakelock.dart';
 
@@ -22,7 +23,8 @@ part 'pod_video_quality_controller.dart';
 class PodGetXVideoController extends _PodGesturesController {
   ///main videoplayer controller
   VideoPlayerController? get videoCtr => _videoCtr;
-  AudioPlayer? get audioCtr => _audioCtr;
+
+  AudioPlayer? get player => _audioCtr;
 
   ///podVideoPlayer state notifier
   PodVideoState get podVideoState => _podVideoState;
@@ -39,7 +41,6 @@ class PodGetXVideoController extends _PodGesturesController {
   Duration get videoPosition => _videoPosition;
 
   bool controllerInitialized = false;
-  final player = AudioPlayer();
   late PodPlayerConfig podPlayerConfig;
   late PlayVideoFrom playVideoFrom;
   void config({

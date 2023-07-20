@@ -133,7 +133,7 @@ class _WebSettingsDropdownState extends State<_WebSettingsDropdown> {
                 title: Text('${e.quality}p'),
               ),
               onTap: () {
-                _podCtr.changeVideoQuality(e.quality, "", true);
+                _podCtr.changeVideoQuality(e.quality, "", true, _podCtr);
               },
             ),
           )
