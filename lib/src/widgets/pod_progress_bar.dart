@@ -105,33 +105,24 @@ class _PodProgressBarState extends State<PodProgressBar> {
                 if (widget.onDragEnd != null) {
                   widget.onDragEnd?.call();
                 }
-
                 _podCtr.videoCtr!.play();
               },
-              onTapDown: (TapDownDetails details) {
-                _podCtr.toggleVideoOverlay();
-                seekToRelativePosition(details.globalPosition);
-
+              onVerticalDragDown: (details) async {
                 if (!videoPlayerValue!.isInitialized) {
                   return;
                 }
+                _podCtr.toggleVideoOverlay();
+                seekToRelativePosition(details.globalPosition);
 
                 if (widget.onDragEnd != null) {
                   widget.onDragEnd?.call();
                 }
                 if (_podCtr.videoCtr!.value.isPlaying) {
-                  _podCtr.videoCtr!.pause();
+                  await _podCtr.videoCtr!.pause();
                   log(currentPossition.toString());
-                  Future.delayed(
-                    const Duration(milliseconds: 500),
-                    () {
-                      log(_podCtr.videoCtr!.value.position.toString());
-                      if (_podCtr.podVideoState == PodVideoState.loading &&
-                          _podCtr.videoPosition == currentPossition) {
-                        _podCtr.videoCtr?.play();
-                      }
-                    },
-                  );
+                  if (_podCtr.videoCtr!.value.isInitialized) {
+                    await _podCtr.videoCtr!.play();
+                  }
                 }
               },
             );
@@ -141,34 +132,30 @@ class _PodProgressBarState extends State<PodProgressBar> {
     );
   }
 
-  MouseRegion _progressBar(BoxConstraints size) {
-    return MouseRegion(
-      cursor: SystemMouseCursors.click,
-      child: Padding(
-        padding: widget.podProgressBarConfig.padding,
-        child: SizedBox(
-          width: size.maxWidth,
-          height: widget.podProgressBarConfig.circleHandlerRadius,
-          child: Align(
-            alignment: widget.alignment,
-            child: GetBuilder<PodGetXVideoController>(
-              tag: widget.tag,
-              id: 'overlay',
-              builder: (_podCtr) => CustomPaint(
-                painter: _ProgressBarPainter(
-                  videoPlayerValue!,
-                  podProgressBarConfig: widget.podProgressBarConfig.copyWith(
-                    circleHandlerRadius: _podCtr.isOverlayVisible ||
-                            widget
-                                .podProgressBarConfig.alwaysVisibleCircleHandler
-                        ? widget.podProgressBarConfig.circleHandlerRadius
-                        : 0,
-                  ),
+  Padding _progressBar(BoxConstraints size) {
+    return Padding(
+      padding: widget.podProgressBarConfig.padding,
+      child: SizedBox(
+        width: size.maxWidth,
+        height: widget.podProgressBarConfig.circleHandlerRadius,
+        child: Align(
+          alignment: widget.alignment,
+          child: GetBuilder<PodGetXVideoController>(
+            tag: widget.tag,
+            id: 'overlay',
+            builder: (_podCtr) => CustomPaint(
+              painter: _ProgressBarPainter(
+                videoPlayerValue!,
+                podProgressBarConfig: widget.podProgressBarConfig.copyWith(
+                  circleHandlerRadius: _podCtr.isOverlayVisible ||
+                          widget.podProgressBarConfig.alwaysVisibleCircleHandler
+                      ? widget.podProgressBarConfig.circleHandlerRadius
+                      : 0,
                 ),
-                size: Size(
-                  double.maxFinite,
-                  widget.podProgressBarConfig.height,
-                ),
+              ),
+              size: Size(
+                double.maxFinite,
+                widget.podProgressBarConfig.height,
               ),
             ),
           ),

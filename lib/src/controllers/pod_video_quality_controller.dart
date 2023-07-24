@@ -132,6 +132,22 @@ class _PodVideoQualityController extends _PodVideoController {
               .where((element) => element.quality > 240)
               .first
               .url!;
+          podLog(_videoQualityUrl);
+          vimeoPlayingVideoQuality = quality;
+          _videoCtr?.removeListener(videoListner);
+          podVideoStateChanger(PodVideoState.paused);
+          podVideoStateChanger(PodVideoState.loading);
+          playingVideoUrl = _videoQualityUrl;
+          _videoCtr = VideoPlayerController.network(_videoQualityUrl);
+          await _videoCtr?.initialize();
+          _videoDuration = _videoCtr?.value.duration ?? Duration.zero;
+          _videoCtr?.addListener(videoListner);
+          await _videoCtr?.seekTo(_videoPosition);
+          setVideoPlayBack(_currentPaybackSpeed);
+          podVideoStateChanger(PodVideoState.playing);
+          onVimeoVideoQualityChanged?.call();
+          update();
+          update(['update-all']);
         } else {
           vimeoPlayingVideoQuality = quality;
           podVideoStateChanger(PodVideoState.paused);
@@ -140,23 +156,6 @@ class _PodVideoQualityController extends _PodVideoController {
             podVideoStateChanger(PodVideoState.playing);
           });
         }
-
-        podLog(_videoQualityUrl);
-        vimeoPlayingVideoQuality = quality;
-        _videoCtr?.removeListener(videoListner);
-        podVideoStateChanger(PodVideoState.paused);
-        podVideoStateChanger(PodVideoState.loading);
-        playingVideoUrl = _videoQualityUrl;
-        _videoCtr = VideoPlayerController.network(_videoQualityUrl);
-        await _videoCtr?.initialize();
-        _videoDuration = _videoCtr?.value.duration ?? Duration.zero;
-        _videoCtr?.addListener(videoListner);
-        await _videoCtr?.seekTo(_videoPosition);
-        setVideoPlayBack(_currentPaybackSpeed);
-        podVideoStateChanger(PodVideoState.playing);
-        onVimeoVideoQualityChanged?.call();
-        update();
-        update(['update-all']);
       }
       if (quality == 480 && url == '') {
         if (vimeoOrVideoUrls.any((element) => element.quality > 480)) {
@@ -164,6 +163,22 @@ class _PodVideoQualityController extends _PodVideoController {
               .where((element) => element.quality > 480)
               .first
               .url!;
+          podLog(_videoQualityUrl);
+          vimeoPlayingVideoQuality = quality;
+          _videoCtr?.removeListener(videoListner);
+          podVideoStateChanger(PodVideoState.paused);
+          podVideoStateChanger(PodVideoState.loading);
+          playingVideoUrl = _videoQualityUrl;
+          _videoCtr = VideoPlayerController.network(_videoQualityUrl);
+          await _videoCtr?.initialize();
+          _videoDuration = _videoCtr?.value.duration ?? Duration.zero;
+          _videoCtr?.addListener(videoListner);
+          await _videoCtr?.seekTo(_videoPosition);
+          setVideoPlayBack(_currentPaybackSpeed);
+          podVideoStateChanger(PodVideoState.playing);
+          onVimeoVideoQualityChanged?.call();
+          update();
+          update(['update-all']);
         } else {
           vimeoPlayingVideoQuality = quality;
           podVideoStateChanger(PodVideoState.paused);
@@ -172,23 +187,6 @@ class _PodVideoQualityController extends _PodVideoController {
             podVideoStateChanger(PodVideoState.playing);
           });
         }
-
-        podLog(_videoQualityUrl);
-        vimeoPlayingVideoQuality = quality;
-        _videoCtr?.removeListener(videoListner);
-        podVideoStateChanger(PodVideoState.paused);
-        podVideoStateChanger(PodVideoState.loading);
-        playingVideoUrl = _videoQualityUrl;
-        _videoCtr = VideoPlayerController.network(_videoQualityUrl);
-        await _videoCtr?.initialize();
-        _videoDuration = _videoCtr?.value.duration ?? Duration.zero;
-        _videoCtr?.addListener(videoListner);
-        await _videoCtr?.seekTo(_videoPosition);
-        setVideoPlayBack(_currentPaybackSpeed);
-        podVideoStateChanger(PodVideoState.playing);
-        onVimeoVideoQualityChanged?.call();
-        update();
-        update(['update-all']);
       }
     } else {
       if (vimeoPlayingVideoQuality != quality) {

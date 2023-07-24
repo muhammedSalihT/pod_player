@@ -124,7 +124,7 @@ class _PodVideoController extends _PodUiController {
       update(['overlay']);
       update(['update-all']);
       showOverlayTimer?.cancel();
-      showOverlayTimer = Timer(const Duration(seconds: 3), () {
+      showOverlayTimer = Timer(const Duration(seconds: 8), () {
         if (isOverlayVisible) {
           isOverlayVisible = false;
           update(['overlay']);
